@@ -6,5 +6,9 @@ export const color = {
   bgItemHover: '#1e2936',
 
   // texts
-  text: '#fff'
+  text: '#fff',
+  secondaryText: '#93a5b7',
+
+  // elements
+  separator: '#2e4052'
 }
