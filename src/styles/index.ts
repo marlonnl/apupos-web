@@ -16,6 +16,11 @@ export const GlobalStyle = createGlobalStyle`
     color: ${color.text};
   }
 
+  a {
+    text-decoration: none;
+    color: ${color.text};
+  }
+
   .container {
     max-width: 800px;
     width: 100%;
