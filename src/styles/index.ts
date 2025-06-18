@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { color } from './colors'
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -8,6 +9,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Roboto, sans-serif;
     list-style-type: none;
     // TODO: add Isoevka
+  }
+
+  body {
+    background-color: ${color.bgPrimary};
+    color: ${color.text};
   }
 
   .container {
