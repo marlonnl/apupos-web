@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# React front-end apupos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi criado com:
+
+- [React App](https://github.com/facebook/create-react-app);
+- ESlint;
+- Prettier
 
 ## Available Scripts
 
