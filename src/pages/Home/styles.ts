@@ -12,13 +12,13 @@ export const Content = styled.div`
   width: 100%;
   max-width: 560px;
   border-left: 1px solid ${color.separator};
-  padding: 16px;
+  /* padding: 16px; */
 
   #animation {
     margin-bottom: 8px;
   }
 
-  div > p {
+  #animation {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     padding: 6px;
     border-radius: 50%;

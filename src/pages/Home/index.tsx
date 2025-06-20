@@ -1,4 +1,5 @@
 import Compose from '../../components/Compose'
+import PostList from '../../components/PostList'
 import Sidebar from '../../components/Sidebar'
 import { Content, Main } from './styles'
 
@@ -12,6 +13,7 @@ const Home = () => {
             <p>📢</p>
           </div>
           <Compose />
+          <PostList />
         </Content>
       </Main>
     </div>

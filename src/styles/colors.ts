@@ -4,6 +4,8 @@ export const color = {
   bgLight: '#14191f',
   bgSecondary: '#080a0c',
   bgItemHover: '#1e2936',
+  bgPostItemHover: '#1a222d',
+  bgActionIconHover: '#1e2936',
 
   // texts
   text: '#fff',
