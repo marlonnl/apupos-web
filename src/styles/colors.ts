@@ -12,5 +12,6 @@ export const color = {
   secondaryText: '#93a5b7',
 
   // elements
-  separator: '#2e4052'
+  separator: '#2e4052',
+  likeActive: '#ec4899'
 }
