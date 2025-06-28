@@ -1,10 +1,5 @@
-import { Chat, Heart, ArrowRepeat } from 'react-bootstrap-icons'
-import {
-  ActionIconContainer,
-  PostActions,
-  PostContainer,
-  PostContent
-} from './styles'
+import { PostActions, PostContainer, PostContent } from './styles'
+import ActionButton from '../ActionButton'
 
 const Apupo = ({ id, content, likes }: PostsAPI) => {
   return (
@@ -21,16 +16,9 @@ const Apupo = ({ id, content, likes }: PostsAPI) => {
           </div>
           <p className="content">{content}</p>
           <PostActions>
-            <ActionIconContainer>
-              <Chat />3
-            </ActionIconContainer>
-            <ActionIconContainer>
-              <Heart />
-              {likes}
-            </ActionIconContainer>
-            <ActionIconContainer>
-              <ArrowRepeat />0
-            </ActionIconContainer>
+            <ActionButton action="reply" active={false} />
+            <ActionButton action="like" count={likes} active={false} />
+            <ActionButton action="rt" count={2} active={false} />
           </PostActions>
         </PostContent>
       </PostContainer>

@@ -52,15 +52,3 @@ export const PostActions = styled.div`
   justify-content: space-between;
   color: ${color.secondaryText};
 `
-
-export const ActionIconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 6px;
-  border-radius: 8px;
-
-  &:hover {
-    background-color: ${color.bgActionIconHover};
-  }
-`
