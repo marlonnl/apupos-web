@@ -1,11 +1,13 @@
 import { PostListContainer } from './styles'
 import { useEffect, useState } from 'react'
 import Apupo from '../Apupo'
-import { useGetApuposQuery } from '../../services/api'
+import { useGetPostsQuery } from '../../services/api'
 
-const PostList = () => {
-  const { data: posts } = useGetApuposQuery()
+type Props = {
+  posts?: PostsAPI[]
+}
 
+const PostList = ({ posts }: Props) => {
   return (
     <PostListContainer>
       {posts?.map((post) => {
