@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { ComposeForm } from './styles'
-import { useCreatePostMutation } from '../../services/api'
+import { useCreatePostMutation, useGetPostsQuery } from '../../services/api'
 
 const Compose = () => {
   const [newApupo, setNewApupo] = useState('')
-  const [createPostMutation, { data }] = useCreatePostMutation()
+  const [createPostMutation, { isSuccess }] = useCreatePostMutation()
+  const { refetch } = useGetPostsQuery()
 
-  const handleSubmit = (content: string) => {
-    // event.preventDefault()
+  const handleSubmit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    content: string
+  ) => {
+    e.preventDefault()
 
     const newPostData: Omit<PostsAPI, 'id' | 'parent'> = {
       content: content,
@@ -16,6 +20,7 @@ const Compose = () => {
     }
 
     createPostMutation(newPostData)
+    refetch()
     // clear input field
     setNewApupo('')
   }
@@ -32,7 +37,7 @@ const Compose = () => {
           onChange={(e) => setNewApupo(e.target.value)}
           placeholder="O que está acontecendo?"
         />
-        <button type="submit" onClick={() => handleSubmit(newApupo)}>
+        <button type="submit" onClick={(e) => handleSubmit(e, newApupo)}>
           apupe
         </button>
       </form>
