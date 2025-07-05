@@ -28,8 +28,8 @@ const Compose = () => {
   return (
     <ComposeForm>
       <form>
-        <input
-          type="text"
+        <textarea
+          // type="text"
           name="apupo"
           id=""
           required={true}

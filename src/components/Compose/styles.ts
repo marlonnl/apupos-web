@@ -7,10 +7,11 @@ export const ComposeForm = styled.div`
 
   form {
     display: flex;
-    align-items: center;
+    align-items: end;
   }
 
-  input {
+  textarea {
+    font-size: 14px;
     width: 100%;
     background-color: ${color.bgPrimary};
     color: ${color.text};
@@ -19,6 +20,7 @@ export const ComposeForm = styled.div`
     outline: none;
     padding: 8px;
     margin: 0 8px;
+    resize: none;
 
     &:hover {
       opacity: .9;
