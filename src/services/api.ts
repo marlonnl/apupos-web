@@ -53,6 +53,9 @@ const postApiSlice = createApi({
         method: 'POST',
         body: actionContent
       })
+    }),
+    getPostDetail: builder.query<PostsAPI, number>({
+      query: (id) => ({ url: `${id}` })
     })
   })
 })
@@ -60,6 +63,7 @@ const postApiSlice = createApi({
 export const {
   useGetPostsQuery,
   useCreatePostMutation,
-  useActionPostMutation
+  useActionPostMutation,
+  useGetPostDetailQuery
 } = postApiSlice
 export default postApiSlice
