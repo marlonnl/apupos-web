@@ -1,22 +1,8 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
 
-export const PostContainer = styled.div`
-  border-top: 1px solid ${color.separator};
-  padding: 12px 16px;
-
+export const Container = styled.div`
   display: flex;
-  gap: 16px;
-
-  img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    background-color: ${color.bgPostItemHover};
-  }
 `
 
 export const PostContent = styled.div`
@@ -25,6 +11,7 @@ export const PostContent = styled.div`
   flex-direction: column;
 
   width: 100%;
+  margin-left: 16px;
 
   p {
     display: inline;
@@ -40,15 +27,23 @@ export const PostContent = styled.div`
     color: ${color.secondaryText};
   }
 
+  & .time {
+    justify-self: flex-end;
+  }
+
   & .content {
     margin-top: 6px;
   }
 `
 
-export const PostActions = styled.div`
-  margin-top: 18px;
-  padding-right: 16px;
+export const PostInfo = styled.div`
   display: flex;
-  justify-content: space-between;
-  color: ${color.secondaryText};
+  margin-bottom: 8px;
+`
+
+export const Retweet = styled.div`
+  border: 1px solid ${color.separator};
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
 `

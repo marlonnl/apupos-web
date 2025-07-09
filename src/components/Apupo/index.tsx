@@ -1,27 +1,50 @@
-import { PostActions, PostContainer, PostContent } from './styles'
-import ActionButton from '../ActionButton'
+import { Container, PostContent, PostInfo, Retweet } from './styles'
+import { useActionPostMutation } from '../../services/api'
+import { formatDate } from '../../utils'
 
-const Apupo = ({ id, content, likes }: PostsAPI) => {
+type actionProps = {
+  id: number
+  action: 'like' | 'unlike' | 'rt'
+}
+
+const Apupo = ({
+  id,
+  content,
+  parent,
+  created_at
+}: Omit<PostsAPI, 'likes'>) => {
+  const [createActionPostMutation, { data: actionResponse, isSuccess }] =
+    useActionPostMutation()
+
+  const handleAction = (actionContent: actionProps) => {
+    // all actions goes the same API, no if needed
+    // if (actionContent.action === 'like') {
+    createActionPostMutation({
+      id: actionContent.id,
+      action: actionContent.action
+    })
+    // console.log(actionResponse?.likes)
+    // }
+  }
+
   return (
     <>
-      <PostContainer>
+      <Container>
         <div>
           <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
         </div>
         <PostContent>
-          <div>
+          <PostInfo>
             <p className="name">post.name {id}</p>
             <p className="user">@post.user</p>
-            <p className="time">5m</p>
+            <p className="time">{formatDate(created_at)}</p>
+          </PostInfo>
+          <div>
+            <p className="content">{content}</p>
+            {parent && <Retweet>{parent.content}</Retweet>}
           </div>
-          <p className="content">{content}</p>
-          <PostActions>
-            <ActionButton action="reply" active={false} />
-            <ActionButton action="like" count={likes} active={false} />
-            <ActionButton action="rt" count={2} active={false} />
-          </PostActions>
         </PostContent>
-      </PostContainer>
+      </Container>
     </>
   )
 }
