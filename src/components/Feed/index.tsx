@@ -1,9 +1,21 @@
-import { useCallback, useEffect, useState } from 'react'
-import PostList from '../PostList'
+import { useEffect, useState } from 'react'
 import Compose from '../Compose'
-import { useGetPostsQuery } from '../../services/api'
+import { useActionPostMutation, useGetPostsQuery } from '../../services/api'
+import Apupo from '../Apupo'
+import { PostActions, PostContainer } from './styles'
+import ActionButton from '../ActionButton'
+
+type actionProps = {
+  id: number
+  action: 'like' | 'unlike' | 'rt'
+}
 
 const Feed = () => {
+  const [
+    createActionPostMutation,
+    { data: actionResponse, isSuccess: actionSuccess }
+  ] = useActionPostMutation()
+
   const [postsFeed, setPostsFeed] = useState<PostsAPI[]>()
   const { data, isLoading, isSuccess, refetch } = useGetPostsQuery()
 
@@ -12,7 +24,15 @@ const Feed = () => {
       setPostsFeed(data)
       // refetch()
     }
-  }, [data, isSuccess])
+  }, [data, isSuccess, refetch, postsFeed, actionResponse])
+
+  const handleAction = (actionContent: actionProps) => {
+    createActionPostMutation({
+      id: actionContent.id,
+      action: actionContent.action
+    })
+    refetch()
+  }
 
   if (isLoading) {
     return <p>Carregando posts...</p>
@@ -21,7 +41,45 @@ const Feed = () => {
   return (
     <>
       <Compose />
-      <PostList posts={postsFeed} />
+      {isSuccess && (
+        <div>
+          {postsFeed?.map((post) => {
+            return (
+              <>
+                <PostContainer>
+                  <Apupo
+                    key={post.id}
+                    id={post.id}
+                    content={post.content}
+                    is_retweet={post.is_retweet}
+                    parent={post.parent}
+                    created_at={post.created_at}
+                  />
+                  <PostActions>
+                    <ActionButton action="reply" active={false} />
+                    <ActionButton
+                      action="like"
+                      count={post.likes}
+                      active={false}
+                      onClick={() =>
+                        handleAction({ id: post.id, action: 'like' })
+                      }
+                    />
+                    <ActionButton
+                      action="rt"
+                      count={0}
+                      active={false}
+                      onClick={() =>
+                        handleAction({ id: post.id, action: 'rt' })
+                      }
+                    />
+                  </PostActions>
+                </PostContainer>
+              </>
+            )
+          })}
+        </div>
+      )}
     </>
   )
 }
