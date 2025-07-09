@@ -13,7 +13,7 @@ const Compose = () => {
   ) => {
     e.preventDefault()
 
-    const newPostData: Omit<PostsAPI, 'id' | 'parent'> = {
+    const newPostData: Omit<PostsAPI, 'id' | 'parent' | 'created_at'> = {
       content: content,
       likes: 0,
       is_retweet: false
@@ -21,6 +21,7 @@ const Compose = () => {
 
     createPostMutation(newPostData)
     refetch()
+
     // clear input field
     setNewApupo('')
   }
