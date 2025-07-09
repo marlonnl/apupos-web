@@ -18,25 +18,48 @@ function getCookie(name: any) {
 
 const csrftoken = getCookie('csrftoken')
 
+type actionType = {
+  id: number
+  action: 'like' | 'unlike' | 'rt'
+}
+
 const postApiSlice = createApi({
   reducerPath: 'fecthPosts',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000/api'
+    baseUrl: 'http://localhost:8000/api/apupo'
   }),
   endpoints: (builder) => ({
+    // returns all posts
     getPosts: builder.query<PostsAPI[], void>({
-      query: () => 'apupo'
+      // query: (user?: string) => ''
+      query: () => ''
     }),
-    createPost: builder.mutation<PostsAPI, Omit<PostsAPI, 'id' | 'parent'>>({
+    // creates a post
+    createPost: builder.mutation<
+      PostsAPI,
+      Omit<PostsAPI, 'id' | 'parent' | 'created_at'>
+    >({
       query: (content) => ({
-        url: 'apupo/create/',
+        url: 'create/',
         method: 'POST',
         // headers: { 'X-CSRFToken': csrftoken, 'Content-Type': 'application/json',  },
         body: content
+      })
+    }),
+    // do actions (fav, unfav, rt, reply)
+    actionPost: builder.mutation<PostsAPI, actionType>({
+      query: (actionContent) => ({
+        url: 'action/',
+        method: 'POST',
+        body: actionContent
       })
     })
   })
 })
 
-export const { useGetPostsQuery, useCreatePostMutation } = postApiSlice
+export const {
+  useGetPostsQuery,
+  useCreatePostMutation,
+  useActionPostMutation
+} = postApiSlice
 export default postApiSlice
