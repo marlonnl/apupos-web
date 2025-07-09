@@ -1,6 +1,5 @@
 import { Chat, Heart, ArrowRepeat, HeartFill } from 'react-bootstrap-icons'
 import { ActionIconContainer } from './styles'
-import * as icons from 'react-bootstrap-icons'
 import { color } from '../../styles/colors'
 import { useState } from 'react'
 
@@ -8,22 +7,15 @@ type Props = {
   action: 'like' | 'reply' | 'rt'
   count?: number
   active?: boolean
+  onClick?: () => void
 }
 
-// interface iconProps extends icons.IconProps {
-//   iconName: keyof typeof icons
-// }
-
-// interface actionIconName extends icons.IconProps {
-//   iconName: keyof typeof icons
-// }
-
-// export const Icon = ({ iconName, ...props }: iconProps) => {
-//   const BootstrapIcon = icons[iconName]
-//   return <BootstrapIcon {...props} />
-// }
-
-const ActionButton = ({ action, count = 0, active = false }: Props) => {
+const ActionButton = ({
+  action,
+  count = 0,
+  active = false,
+  onClick
+}: Props) => {
   const [counter, setCounter] = useState(count)
   const [isActive, setIsActive] = useState(active)
 
@@ -55,7 +47,7 @@ const ActionButton = ({ action, count = 0, active = false }: Props) => {
 
   return (
     <>
-      <ActionIconContainer onClick={handleClick}>
+      <ActionIconContainer onClick={onClick}>
         {actionElement}
         {counter > 0 ? counter : ''}
       </ActionIconContainer>
