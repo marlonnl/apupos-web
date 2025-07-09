@@ -8,4 +8,5 @@ declare type PostsAPI = {
     content: string
     likes: number
   }
+  created_at: string
 }
