@@ -9,8 +9,6 @@ export const PostContent = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
-
-  width: 100%;
   margin-left: 16px;
 
   p {
@@ -30,15 +28,19 @@ export const PostContent = styled.div`
   & .time {
     justify-self: flex-end;
   }
+`
 
-  & .content {
-    margin-top: 6px;
-  }
+export const PostText = styled.div`
+  max-width: 460px;
+  overflow-wrap: break-word;
+  margin-top: 6px;
+  line-height: 20px;
 `
 
 export const PostInfo = styled.div`
   display: flex;
   margin-bottom: 8px;
+  text-overflow: hidden;
 `
 
 export const Retweet = styled.div`

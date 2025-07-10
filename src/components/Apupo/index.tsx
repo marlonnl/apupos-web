@@ -1,4 +1,4 @@
-import { Container, PostContent, PostInfo, Retweet } from './styles'
+import { Container, PostContent, PostInfo, PostText, Retweet } from './styles'
 import { useActionPostMutation } from '../../services/api'
 import { formatDate } from '../../utils'
 
@@ -40,7 +40,7 @@ const Apupo = ({
             <p className="time">{formatDate(created_at)}</p>
           </PostInfo>
           <div>
-            <p className="content">{content}</p>
+            <PostText>{content}</PostText>
             {parent && <Retweet>{parent.content}</Retweet>}
           </div>
         </PostContent>
