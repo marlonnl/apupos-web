@@ -54,7 +54,7 @@ const postApiSlice = createApi({
         body: actionContent
       })
     }),
-    getPostDetail: builder.query<PostsAPI, number>({
+    getPostDetail: builder.query<PostsAPI, number | string>({
       query: (id) => ({ url: `${id}` })
     })
   })
