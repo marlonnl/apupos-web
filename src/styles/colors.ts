@@ -8,7 +8,8 @@ export const color = {
   bgActionIconHover: '#1e2936',
 
   // texts
-  text: '#fff',
+  // text: '#fff',
+  text: '#f1f3f5',
   secondaryText: '#93a5b7',
 
   // elements
