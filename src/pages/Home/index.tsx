@@ -1,6 +1,6 @@
 import Feed from '../../components/Feed'
 import Sidebar from '../../components/Sidebar'
-import { Content, Main } from './styles'
+import { Content, Main } from '../../styles'
 
 const Home = () => {
   return (

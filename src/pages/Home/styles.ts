@@ -1,19 +1,9 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
 
-export const Main = styled.div`
-  display: flex;
-`
-
 // https://codepen.io/P1N2O/pen/pyBNzX
 
 export const Content = styled.div`
-  margin-top: 8px;
-  width: 100%;
-  max-width: 560px;
-  border-left: 1px solid ${color.separator};
-  /* padding: 16px; */
-
   #animation {
     margin-bottom: 8px;
   }
