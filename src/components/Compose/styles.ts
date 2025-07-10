@@ -23,7 +23,7 @@ export const ComposeForm = styled.div`
     resize: none;
 
     &:hover {
-      opacity: .9;
+      opacity: 0.9;
       /* cursor: pointer; */
     }
   }
@@ -42,8 +42,13 @@ export const ComposeForm = styled.div`
     margin: 0 auto;
     animation: gradient 15s ease infinite;
 
+    &:disabled {
+      background: ${color.separator};
+      animation: none;
+    }
+
     &:hover {
-      opacity: .9;
+      opacity: 0.9;
       /* cursor: pointer; */
     }
   }
@@ -58,4 +63,5 @@ export const ComposeForm = styled.div`
     100% {
       background-position: 0% 50%;
     }
+  }
 `

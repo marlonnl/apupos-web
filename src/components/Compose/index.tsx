@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ComposeForm } from './styles'
 import { useCreatePostMutation, useGetPostsQuery } from '../../services/api'
+import { MAX_LENGTH } from '../../utils'
 
 const Compose = () => {
   const [newApupo, setNewApupo] = useState('')
+  const [canPost, setCanPost] = useState(true)
   const [createPostMutation, { isSuccess }] = useCreatePostMutation()
   const { refetch } = useGetPostsQuery()
 
@@ -26,6 +28,17 @@ const Compose = () => {
     setNewApupo('')
   }
 
+  // verifica se a nova postagem está dentro do limite de caracteres
+  useEffect(() => {
+    if (newApupo.length > MAX_LENGTH) {
+      if (canPost === true) {
+        setCanPost(false)
+      }
+    } else if (canPost === false && newApupo.length <= MAX_LENGTH) {
+      setCanPost(true)
+    }
+  }, [newApupo, canPost])
+
   return (
     <ComposeForm>
       <form>
@@ -38,7 +51,11 @@ const Compose = () => {
           onChange={(e) => setNewApupo(e.target.value)}
           placeholder="O que está acontecendo?"
         />
-        <button type="submit" onClick={(e) => handleSubmit(e, newApupo)}>
+        <button
+          type="submit"
+          onClick={(e) => handleSubmit(e, newApupo)}
+          disabled={!canPost}
+        >
           apupe
         </button>
       </form>
