@@ -1,6 +1,7 @@
 import { Container, PostContent, PostInfo, PostText, Retweet } from './styles'
 import { useActionPostMutation } from '../../services/api'
 import { formatDate } from '../../utils'
+import { useNavigate } from 'react-router-dom'
 
 type actionProps = {
   id: number
@@ -16,6 +17,8 @@ const Apupo = ({
   const [createActionPostMutation, { data: actionResponse, isSuccess }] =
     useActionPostMutation()
 
+  const navigate = useNavigate()
+
   const handleAction = (actionContent: actionProps) => {
     // all actions goes the same API, no if needed
     // if (actionContent.action === 'like') {
@@ -27,9 +30,14 @@ const Apupo = ({
     // }
   }
 
+  const handleNavigate = () => {
+    const linkTo = `/post/${id}`
+    navigate(linkTo)
+  }
+
   return (
     <>
-      <Container>
+      <Container onClick={handleNavigate}>
         <div>
           <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
         </div>

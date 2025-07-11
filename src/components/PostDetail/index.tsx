@@ -8,6 +8,7 @@ import {
   UserInfo,
   UserInfoHeader
 } from './styles'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   id: string
@@ -16,9 +17,15 @@ type Props = {
 const PostDetail = ({ id }: Props) => {
   const { data, isSuccess } = useGetPostDetailQuery(id)
 
+  const navigate = useNavigate()
+
+  const handleBackNavigate = () => {
+    navigate('/')
+  }
+
   return (
     <>
-      <PostDetailHeader>
+      <PostDetailHeader onClick={handleBackNavigate}>
         <ArrowLeftCircle />
         <h2>Postagem</h2>
       </PostDetailHeader>
