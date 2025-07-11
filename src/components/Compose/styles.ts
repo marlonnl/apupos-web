@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
 
+type CharsLeftProps = {
+  lenght: number
+}
+
 export const ComposeForm = styled.div`
   font-size: 12px;
   margin: 16px 0;
@@ -64,4 +68,19 @@ export const ComposeForm = styled.div`
       background-position: 0% 50%;
     }
   }
+`
+
+export const SidePanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+`
+
+export const Characters = styled.span<CharsLeftProps>`
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: ${(props) =>
+    props.lenght <= 0 ? color.likeActive : color.secondaryText};
 `
