@@ -4,6 +4,7 @@ import { useActionPostMutation, useGetPostsQuery } from '../../services/api'
 import Apupo from '../Apupo'
 import { PostActions, PostContainer } from './styles'
 import ActionButton from '../ActionButton'
+import { useNavigate } from 'react-router-dom'
 
 type actionProps = {
   id: number
@@ -18,6 +19,8 @@ const Feed = () => {
 
   const [postsFeed, setPostsFeed] = useState<PostsAPI[]>()
   const { data, isLoading, isSuccess, refetch } = useGetPostsQuery()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isSuccess) {
@@ -38,6 +41,11 @@ const Feed = () => {
     return <p>Carregando posts...</p>
   }
 
+  const handleNavigate = (detailId: number) => {
+    const linkTo = `/post/${detailId}`
+    navigate(linkTo)
+  }
+
   return (
     <>
       <Compose />
@@ -46,7 +54,7 @@ const Feed = () => {
           {postsFeed?.map((post) => {
             return (
               <>
-                <PostContainer>
+                <PostContainer onClick={() => handleNavigate(post.id)}>
                   <Apupo
                     key={post.id}
                     id={post.id}
