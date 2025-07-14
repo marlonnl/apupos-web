@@ -7,7 +7,7 @@ type Props = {
   action: 'like' | 'reply' | 'rt'
   count?: number
   active?: boolean
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent) => void
 }
 
 const ActionButton = ({
