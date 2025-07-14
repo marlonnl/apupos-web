@@ -29,21 +29,24 @@ const Feed = () => {
     }
   }, [data, isSuccess, refetch, postsFeed, actionResponse])
 
-  const handleAction = (actionContent: actionProps) => {
+  const handleAction = (e: React.MouseEvent, actionContent: actionProps) => {
     createActionPostMutation({
       id: actionContent.id,
       action: actionContent.action
     })
     refetch()
+    e.stopPropagation()
   }
 
   if (isLoading) {
     return <p>Carregando posts...</p>
   }
 
-  const handleNavigate = (detailId: number) => {
-    const linkTo = `/post/${detailId}`
-    navigate(linkTo)
+  const handleNavigate = (detailId: number, e: React.MouseEvent) => {
+    if (e.target !== e.currentTarget) {
+      const linkTo = `/post/${detailId}`
+      navigate(linkTo)
+    }
   }
 
   return (
@@ -54,7 +57,7 @@ const Feed = () => {
           {postsFeed?.map((post) => {
             return (
               <>
-                <PostContainer onClick={() => handleNavigate(post.id)}>
+                <PostContainer onClick={(e) => handleNavigate(post.id, e)}>
                   <Apupo
                     key={post.id}
                     id={post.id}
@@ -69,16 +72,16 @@ const Feed = () => {
                       action="like"
                       count={post.likes}
                       active={false}
-                      onClick={() =>
-                        handleAction({ id: post.id, action: 'like' })
+                      onClick={(e) =>
+                        handleAction(e, { id: post.id, action: 'like' })
                       }
                     />
                     <ActionButton
                       action="rt"
                       count={0}
                       active={false}
-                      onClick={() =>
-                        handleAction({ id: post.id, action: 'rt' })
+                      onClick={(e) =>
+                        handleAction(e, { id: post.id, action: 'rt' })
                       }
                     />
                   </PostActions>
