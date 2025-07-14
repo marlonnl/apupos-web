@@ -9,6 +9,7 @@ export const PostContent = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   margin-left: 16px;
 
   p {
@@ -31,9 +32,9 @@ export const PostContent = styled.div`
 `
 
 export const PostText = styled.div`
-  max-width: 460px;
+  max-width: 100%;
   overflow-wrap: break-word;
-  margin-top: 6px;
+  /* margin-top: 6px; */
   line-height: 20px;
 `
 
