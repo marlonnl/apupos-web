@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
+import { PostActions } from '../Feed/styles'
 
 export const PostDetailHeader = styled.div`
   padding: 16px;
@@ -55,7 +56,7 @@ export const PostDetailContent = styled.div`
 
 export const PostStats = styled.div`
   margin-top: 8px;
-  padding: 12px 0;
+  padding: 12px 4px;
   border-top: 1px solid ${color.separator};
   border-bottom: 1px solid ${color.separator};
   color: ${color.secondaryText};
@@ -68,4 +69,9 @@ export const PostStats = styled.div`
     font-weight: bold;
     color: ${color.text};
   }
+`
+
+export const DetailPostActions = styled(PostActions)`
+  font-size: 88px;
+  /* background-color: red; */
 `

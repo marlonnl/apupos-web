@@ -25,11 +25,13 @@ const Compose = () => {
     }
 
     createPostMutation(newPostData)
-    refetch()
-
     // clear input field
     setNewApupo('')
   }
+
+  useEffect(() => {
+    refetch()
+  }, [isSuccess, refetch])
 
   // verifica se a nova postagem está dentro do limite de caracteres
   useEffect(() => {
