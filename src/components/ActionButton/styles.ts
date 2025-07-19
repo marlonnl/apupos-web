@@ -11,6 +11,7 @@ export const ActionIconContainer = styled.button`
   background-color: transparent;
   border: none;
   color: ${color.secondaryText};
+  font-family: 'Source Code Pro', monospace;
 
   &:hover {
     background-color: ${color.bgActionIconHover};
