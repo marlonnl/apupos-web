@@ -1,4 +1,5 @@
 import Feed from '../../components/Feed'
+import Logo from '../../components/Logo'
 import Sidebar from '../../components/Sidebar'
 import { Content, Main } from '../../styles'
 
@@ -8,9 +9,7 @@ const Home = () => {
       <Main>
         <Sidebar />
         <Content>
-          <div id="animation">
-            <p>📢</p>
-          </div>
+          <Logo />
           <Feed />
         </Content>
       </Main>
