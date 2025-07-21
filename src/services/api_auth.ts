@@ -5,6 +5,16 @@ type loginType = {
   password: string
 }
 
+type loginResponseType = {
+  id: number
+  username: string
+  email: string
+  tokens: {
+    access?: string
+    refresh?: string
+  }
+}
+
 type registerType = {
   username: string
   email: string
@@ -15,14 +25,14 @@ type registerType = {
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // TODO: alterar type do primeiro valor (retorno)
-    login: builder.mutation<loginType, loginType>({
+    login: builder.mutation<loginResponseType, loginType>({
       query: (loginContext) => ({
         url: '/auth/login/',
         method: 'POST',
         body: loginContext
       })
     }),
-    register: builder.mutation<registerType, registerType>({
+    register: builder.mutation<unknown, registerType>({
       query: (registerContext) => ({
         url: '/auth/register/',
         method: 'POST',
