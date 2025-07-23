@@ -66,6 +66,7 @@ export const PostStats = styled.div`
   gap: 16px;
 
   span {
+    font-family: 'Source Code Pro', monospace;
     font-weight: bold;
     color: ${color.text};
   }
