@@ -10,3 +10,28 @@ declare type PostsAPI = {
   }
   created_at: string
 }
+
+declare type loginResponseType = {
+  id: number
+  username: string
+  email: string
+  tokens?: {
+    access?: string
+    refresh?: string
+  }
+}
+
+declare type loginActionType = {
+  id: number
+  username: string
+  email: string
+}
+
+declare type AuthTokenType = {
+  access: string
+  refresh: string
+}
+
+declare type RefreshTokenAPIResponse = {
+  refreshed: boolean
+}
