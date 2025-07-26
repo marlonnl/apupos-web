@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
+import { Link } from 'react-router-dom'
 
 export const Panels = styled.div`
   display: flex;
@@ -11,6 +12,15 @@ export const Title = styled.h2`
   margin: 16px 0 32px 0;
   border-bottom: 1px solid ${color.separator};
   padding: 16px;
+`
+
+export const GoToRegister = styled(Link)`
+  &#animation {
+    border-radius: 8px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 2px 4px;
+  }
 `
 
 export const RegisterForm = styled.form`
@@ -56,5 +66,9 @@ export const FormItem = styled.div`
     padding: 12px 8px;
     border-radius: 8px;
     border: none;
+  }
+
+  label {
+    font-size: 14px;
   }
 `
