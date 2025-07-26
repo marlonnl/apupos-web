@@ -5,16 +5,6 @@ type loginType = {
   password: string
 }
 
-type loginResponseType = {
-  id: number
-  username: string
-  email: string
-  tokens: {
-    access?: string
-    refresh?: string
-  }
-}
-
 type registerType = {
   username: string
   email: string
@@ -38,9 +28,19 @@ const authApi = baseApi.injectEndpoints({
         method: 'POST',
         body: registerContext
       })
+    }),
+    authenticated: builder.mutation<boolean, undefined>({
+      query: () => ({
+        url: '/auth/authenticated/',
+        method: 'POST'
+      })
     })
   })
 })
 
-export const { useLoginMutation, useRegisterMutation } = authApi
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useAuthenticatedMutation
+} = authApi
 export default authApi
