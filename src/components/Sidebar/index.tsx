@@ -1,7 +1,12 @@
 import { Bell, Gear, HouseDoorFill, Person } from 'react-bootstrap-icons'
 import { LinkItem, LinkList, SidebarSection, UserBar } from './styles'
+import { useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 const Sidebar = () => {
+  const { isLogged, user } = useSelector(
+    (state: RootReducer) => state.authSlice
+  )
   const iconSize = 22
 
   return (
@@ -12,7 +17,7 @@ const Sidebar = () => {
           <h3>
             <b>nome do user</b>
           </h3>
-          <p>@username</p>
+          <p>@{user?.username}</p>
         </div>
       </UserBar>
 
