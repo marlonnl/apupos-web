@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react'
 import Logo from '../../components/Logo'
 import SideAuth from '../../components/SideAuth'
-import { FormItem, Panels, RegisterForm, Title } from '../Register/styles'
+import {
+  FormItem,
+  GoToRegister,
+  Panels,
+  RegisterForm,
+  Title
+} from '../Register/styles'
 import { useLoginMutation } from '../../services/api_auth'
+import ErrorBox from '../../components/ErrorBox'
+import { useDispatch, useSelector } from 'react-redux'
+import { authentication } from '../../store/reducers/auth'
+import { RootReducer } from '../../store'
+import { Link, useNavigate } from 'react-router-dom'
+import { refresh } from '../../store/reducers/token'
 
 type FormDataLogin = {
   username: string
@@ -16,6 +28,10 @@ const Login = () => {
     username: '',
     password: ''
   })
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { isLogged } = useSelector((state: RootReducer) => state.authSlice)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataLogin({
@@ -35,24 +51,42 @@ const Login = () => {
     }
   }
 
+  if (isSuccess) {
+    navigate('/')
+  }
+
   useEffect(() => {
-    console.log('sucesso!!!')
-    // console.log(data?.tokens.access)
-    if (data?.tokens.access && data?.tokens.refresh) {
-      localStorage.setItem('accessToken', data?.tokens.access)
-      localStorage.setItem('refreshToken', data?.tokens.refresh)
+    // console.log('sucesso!!!')
+    if (isSuccess && data) {
+      const authData = {
+        id: data.id,
+        username: data.username,
+        email: data.email
+      }
+
+      dispatch(authentication(authData))
+      dispatch(refresh())
+      navigate('/')
+      console.log(data)
     }
-  }, [isSuccess, data])
+    // if (data && data.tokens.access && data.tokens.refresh) {
+    //   dispatch(authentication(data))
+    //   localStorage.setItem('accessToken', data?.tokens.access)
+    //   localStorage.setItem('refreshToken', data?.tokens.refresh)
+    // }
+  }, [isSuccess, data, dispatch, navigate])
 
   return (
     <div className="container" style={{ marginTop: '16px' }}>
       <Logo />
       <Title>Login</Title>
 
+      {/* {isError && error && <ErrorBox errordata={error} />} */}
+
       <Panels>
         <RegisterForm>
           <FormItem>
-            <label>E-mail:</label>
+            <label>Username:</label>
             <input
               type="text"
               name="username"
@@ -71,9 +105,20 @@ const Login = () => {
             />
           </FormItem>
 
-          <button type="submit" id="animation" onClick={(e) => onSubmit(e)}>
+          <button
+            type="submit"
+            id="animation"
+            disabled={isLoading}
+            onClick={(e) => onSubmit(e)}
+          >
             Entrar
           </button>
+          <p>
+            Não possui uma conta?
+            <GoToRegister to="/register" id="animation">
+              Registre-se!
+            </GoToRegister>
+          </p>
         </RegisterForm>
         <SideAuth />
       </Panels>
