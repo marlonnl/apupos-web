@@ -9,11 +9,9 @@ const tokenSlice = createSlice({
   name: 'tokenSlice',
   initialState,
   reducers: {
-    refresh: (state) => {
-      const new_access_token = localStorage.getItem('access_token')
-      const new_refresh_token = localStorage.getItem('refresh_token')
-
-      console.log(new_access_token, new_refresh_token)
+    refreshTokens: (state) => {
+      const new_access_token = localStorage.getItem('accessToken')
+      const new_refresh_token = localStorage.getItem('refreshToken')
 
       if (new_access_token && new_refresh_token) {
         state.access = new_access_token
@@ -23,5 +21,5 @@ const tokenSlice = createSlice({
   }
 })
 
-export const { refresh } = tokenSlice.actions
+export const { refreshTokens } = tokenSlice.actions
 export default tokenSlice.reducer
