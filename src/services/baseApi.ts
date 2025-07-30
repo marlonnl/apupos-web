@@ -9,7 +9,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import { BASE_API_URL } from '../utils'
 import { RootReducer } from '../store'
-import { refresh } from '../store/reducers/token'
+import { updateTokens } from '../store/reducers/token'
 import { logout } from '../store/reducers/auth'
 
 export const baseApi2 = createApi({
@@ -33,11 +33,12 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const { access } = (getState() as RootReducer).tokenSlice
     if (access) {
+      // console.log(`Reauth: ${access}.`)
       headers.set('Authorization', `Bearer ${access}`)
     }
     return headers
-  }
-  // credentials: 'include'
+  },
+  credentials: 'include'
 })
 
 export const baseQueryWithReauth: BaseQueryFn<
@@ -47,8 +48,10 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result.error.status === 401) {
-    const refreshToken = localStorage.getItem('refresh_token')
+  console.log(result)
+
+  if (result.error && result.error.status === 403) {
+    const refreshToken = localStorage.getItem('refreshToken')
 
     if (refreshToken) {
       const refreshResult: any = await baseQuery(
@@ -60,11 +63,13 @@ export const baseQueryWithReauth: BaseQueryFn<
         extraOptions
       )
 
+      console.log('Deu ruim no refresh')
+      console.log(refreshResult)
       if (refreshResult.data) {
         if (refreshResult.data.refreshed === true) {
           // const new_access_token = localStorage.getItem('access_token')
           // const new_refresh_token = localStorage.getItem('refresh_token')
-          api.dispatch(refresh())
+          api.dispatch(updateTokens())
 
           result = await baseQuery(args, api, extraOptions)
         }
@@ -82,5 +87,6 @@ export const baseQueryWithReauth: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithReauth,
-  endpoints: () => ({})
+  endpoints: () => ({}),
+  refetchOnReconnect: true
 })
