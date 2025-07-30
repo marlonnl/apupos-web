@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authentication } from '../../store/reducers/auth'
 import { RootReducer } from '../../store'
 import { Link, useNavigate } from 'react-router-dom'
-import { refresh } from '../../store/reducers/token'
 
 type FormDataLogin = {
   username: string
@@ -58,6 +57,7 @@ const Login = () => {
   useEffect(() => {
     // console.log('sucesso!!!')
     if (isSuccess && data) {
+      console.log(data)
       const authData = {
         id: data.id,
         username: data.username,
@@ -65,9 +65,9 @@ const Login = () => {
       }
 
       dispatch(authentication(authData))
-      dispatch(refresh())
+      // dispatch(refresh())
       navigate('/')
-      console.log(data)
+      // console.log(data)
     }
     // if (data && data.tokens.access && data.tokens.refresh) {
     //   dispatch(authentication(data))
