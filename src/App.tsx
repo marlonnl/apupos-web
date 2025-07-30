@@ -5,11 +5,7 @@ import { store } from './store'
 
 import Rotas from './routes'
 
-type Props = {
-  username?: string
-}
-
-function App(username: Props) {
+function App() {
   return (
     <>
       <Provider store={store}>
