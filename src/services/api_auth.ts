@@ -1,3 +1,4 @@
+import { BASE_API_AUTH_URL } from '../utils'
 import { baseApi } from './baseApi'
 
 type loginType = {
@@ -17,7 +18,7 @@ const authApi = baseApi.injectEndpoints({
     // TODO: alterar type do primeiro valor (retorno)
     login: builder.mutation<loginResponseType, loginType>({
       query: (loginContext) => ({
-        url: '/auth/login/',
+        url: '/auth/token/',
         method: 'POST',
         body: loginContext
       })
@@ -29,9 +30,15 @@ const authApi = baseApi.injectEndpoints({
         body: registerContext
       })
     }),
-    authenticated: builder.mutation<boolean, undefined>({
+    authenticated: builder.query<boolean, void>({
       query: () => ({
         url: '/auth/authenticated/',
+        method: 'POST'
+      })
+    }),
+    doLogout: builder.mutation<unknown, void>({
+      query: () => ({
+        url: `${BASE_API_AUTH_URL}logout/`,
         method: 'POST'
       })
     })
@@ -41,6 +48,7 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useAuthenticatedMutation
+  useAuthenticatedQuery,
+  useDoLogoutMutation
 } = authApi
 export default authApi
