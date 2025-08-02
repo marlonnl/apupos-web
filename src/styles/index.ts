@@ -56,6 +56,10 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Main = styled.div`
   display: flex;
+
+  .number {
+    font-family: 'Source Code Pro', monospace;
+  }
 `
 
 export const Content = styled.div`
