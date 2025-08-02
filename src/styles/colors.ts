@@ -6,6 +6,7 @@ export const color = {
   bgItemHover: '#1e2936',
   bgPostItemHover: '#1a222d',
   bgActionIconHover: '#1e2936',
+  bgNavButtonHover: '#263544',
 
   // texts
   // text: '#fff',
@@ -16,3 +17,5 @@ export const color = {
   separator: '#2e4052',
   likeActive: '#ec4899'
 }
+
+//  263544
