@@ -1,6 +1,7 @@
 import { Container, PostContent, PostInfo, PostText, Retweet } from './styles'
 import { useActionPostMutation } from '../../services/api'
 import { formatDate } from '../../utils'
+import { Link } from 'react-router-dom'
 
 type actionProps = {
   id: number
@@ -35,7 +36,10 @@ const Apupo = ({
         </div>
         <PostContent>
           <PostInfo>
-            <p className="name">post.name {id}</p>
+            <Link to={`/user/${id}`}>
+              <p className="name">post.name {id}</p>
+            </Link>
+
             <p className="user">@post.user</p>
             <p className="time">{formatDate(created_at)}</p>
           </PostInfo>
