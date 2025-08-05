@@ -18,11 +18,12 @@ const Compose = () => {
   ) => {
     e.preventDefault()
 
-    const newPostData: Omit<PostsAPI, 'id' | 'parent' | 'created_at'> = {
-      content: content,
-      likes: 0,
-      is_retweet: false
-    }
+    const newPostData: Omit<PostsAPI, 'id' | 'parent' | 'created_at' | 'user'> =
+      {
+        content: content,
+        likes: 0,
+        is_retweet: false
+      }
 
     createPostMutation(newPostData)
     // clear input field

@@ -1,5 +1,11 @@
 declare type PostsAPI = {
   id: number
+  user: {
+    id: number
+    username: string
+    first_name: string
+    email: string
+  }
   content: string
   likes: number
   is_retweet?: boolean

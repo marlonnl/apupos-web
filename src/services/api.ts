@@ -15,7 +15,7 @@ const postsApi = baseApi.injectEndpoints({
     // creates a post
     createPost: builder.mutation<
       PostsAPI,
-      Omit<PostsAPI, 'id' | 'parent' | 'created_at'>
+      Omit<PostsAPI, 'id' | 'parent' | 'created_at' | 'user'>
     >({
       query: (content) => ({
         url: '/apupo/create/',
