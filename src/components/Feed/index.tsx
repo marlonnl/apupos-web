@@ -44,7 +44,7 @@ const Feed = () => {
 
   const handleNavigate = (detailId: number, e: React.MouseEvent) => {
     if (e.target !== e.currentTarget) {
-      const linkTo = `/post/${detailId}`
+      const linkTo = `/post/${detailId}/`
       navigate(linkTo)
     }
   }
@@ -57,10 +57,11 @@ const Feed = () => {
           {postsFeed?.map((post) => {
             return (
               <>
-                <PostContainer onClick={(e) => handleNavigate(post.id, e)}>
+                <PostContainer>
                   <Apupo
                     key={post.id}
                     id={post.id}
+                    user={post.user}
                     content={post.content}
                     is_retweet={post.is_retweet}
                     parent={post.parent}

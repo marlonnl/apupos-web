@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import {
   ProfileResponseAPI,
   useGetProfileQuery,
-  useLazyGetProfileQuery,
   useUpdateProfileMutation
 } from '../../services/api_profile'
 import {

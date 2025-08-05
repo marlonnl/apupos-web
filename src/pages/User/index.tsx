@@ -1,4 +1,4 @@
-import { Params, useParams } from 'react-router-dom'
+import { Link, Params, useParams } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar'
 import { Main } from '../../styles'
 import {
@@ -46,7 +46,9 @@ const User = () => {
               <>
                 <UserHeader>
                   <div style={{ marginBottom: '16px' }}>
-                    <ArrowLeft size={22} />
+                    <Link to="/">
+                      <ArrowLeft size={22} />
+                    </Link>
                   </div>
                   <UserHeaderNavContainer>
                     <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />

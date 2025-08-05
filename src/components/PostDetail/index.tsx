@@ -61,16 +61,20 @@ const PostDetail = ({ id }: Props) => {
               <UserInfoHeader>
                 <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
                 <div>
-                  <p>nome do usuário</p>
-                  <p>@username</p>
+                  <p>
+                    {data.user.first_name
+                      ? data.user.first_name
+                      : data.user.username}
+                  </p>
+                  <p style={{ fontSize: '14px' }}>@{data.user.username}</p>
                 </div>
               </UserInfoHeader>
             </UserInfo>
             <PostDetailContent>
-              {data?.content}
+              {data.content}
               <p>
                 <Calendar2Check />
-                {data?.created_at}
+                {data.created_at}
               </p>
             </PostDetailContent>
             <PostStats>
