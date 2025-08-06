@@ -18,9 +18,14 @@ declare type PostsAPI = {
 }
 
 declare type loginResponseType = {
-  id: number
-  username: string
-  email: string
+  user: {
+    id: number
+    username: string
+    name: string
+    bio: string
+    site: string
+    location: string
+  }
   tokens?: {
     access?: string
     refresh?: string
@@ -30,7 +35,10 @@ declare type loginResponseType = {
 declare type loginActionType = {
   id: number
   username: string
-  email: string
+  name: string
+  bio: string
+  site: string
+  location: string
 }
 
 declare type AuthTokenType = {

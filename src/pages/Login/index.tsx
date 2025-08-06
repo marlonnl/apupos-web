@@ -59,9 +59,13 @@ const Login = () => {
     if (isSuccess && data) {
       console.log(data)
       const authData = {
-        id: data.id,
-        username: data.username,
-        email: data.email
+        id: data.user.id,
+        username: data.user.username,
+        name: data.user.name,
+        bio: data.user.bio,
+        site: data.user.site,
+        location: data.user.location
+        // email: data.user.email
       }
 
       dispatch(authentication(authData))

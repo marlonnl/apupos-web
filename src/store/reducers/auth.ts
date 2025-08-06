@@ -5,11 +5,10 @@ type authState = {
   user?: {
     id: number
     username: string
-    email: string
-    tokens?: {
-      access?: string
-      refresh?: string
-    }
+    name: string
+    bio: string
+    site: string
+    location: string
   }
 }
 
@@ -35,7 +34,3 @@ const authSlice = createSlice({
 
 export const { authentication, logout } = authSlice.actions
 export default authSlice.reducer
-
-// TODO: userSlice
-// isAuth: bool
-// id, username, name, ...
