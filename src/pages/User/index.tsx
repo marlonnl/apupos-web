@@ -1,4 +1,4 @@
-import { Link, Params, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar'
 import { Main } from '../../styles'
 import {
@@ -13,6 +13,7 @@ import {
 import {
   ArrowLeft,
   PersonFillAdd,
+  PersonFillDash,
   PersonLinesFill
 } from 'react-bootstrap-icons'
 import { useState } from 'react'
@@ -23,6 +24,8 @@ const User = () => {
   const { username } = useParams() as { username: string }
 
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [isFollowing, setIsFollowing] = useState<boolean>(false)
+
   const { data } = useGetProfileQuery(username)
 
   function onClickEditProfile() {
@@ -31,6 +34,10 @@ const User = () => {
 
   const closeModal = () => {
     setModalVisible(false)
+  }
+
+  const handleFollow = async () => {
+    const a = 1
   }
 
   return (
@@ -56,8 +63,16 @@ const User = () => {
                       <button onClick={onClickEditProfile}>
                         <PersonLinesFill /> editar perfil
                       </button>
-                      <button>
-                        <PersonFillAdd /> seguir
+                      <button onClick={handleFollow}>
+                        {!isFollowing ? (
+                          <>
+                            <PersonFillAdd /> seguir
+                          </>
+                        ) : (
+                          <>
+                            <PersonFillDash /> deixar de seguir
+                          </>
+                        )}
                       </button>
                       <button>...</button>
                     </UserHeaderNavbar>
