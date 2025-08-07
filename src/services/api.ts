@@ -8,7 +8,7 @@ type actionType = {
 const postsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // returns all posts
-    getPosts: builder.query<PostsAPI[], void>({
+    getPosts: builder.query<Pagination, void>({
       // query: (user?: string) => ''
       query: () => '/apupo/'
     }),

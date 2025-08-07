@@ -1,10 +1,21 @@
+declare type Pagination = {
+  count: number
+  next: string | null
+  previous: string | null
+  results: PostsAPI[]
+}
+
 declare type PostsAPI = {
   id: number
   user: {
     id: number
     username: string
-    first_name: string
-    email: string
+    first_name: string | null
+    bio: string | null
+    site: string | null
+    location: string | null
+    following_count: number
+    followers_count: number
   }
   content: string
   likes: number
