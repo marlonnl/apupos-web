@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authentication } from '../../store/reducers/auth'
 import { RootReducer } from '../../store'
 import { Link, useNavigate } from 'react-router-dom'
+import Loader from '../../components/Loader'
 
 type FormDataLogin = {
   username: string
@@ -79,6 +80,10 @@ const Login = () => {
     //   localStorage.setItem('refreshToken', data?.tokens.refresh)
     // }
   }, [isSuccess, data, dispatch, navigate])
+
+  if (isLoading) {
+    return <Loader size={48} />
+  }
 
   return (
     <div className="container" style={{ marginTop: '16px' }}>

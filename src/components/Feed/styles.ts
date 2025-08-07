@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { color } from '../../styles/colors'
 
+export const FeedContainer = styled.div`
+  overflow-y: scroll;
+  height: 100%;
+`
+
 export const PostContainer = styled.div`
   border-top: 1px solid ${color.separator};
   padding: 12px 16px;

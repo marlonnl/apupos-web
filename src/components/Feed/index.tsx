@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import Compose from '../Compose'
 import { useActionPostMutation, useGetPostsQuery } from '../../services/api'
 import Apupo from '../Apupo'
-import { PostActions, PostContainer } from './styles'
+import { FeedContainer, PostActions, PostContainer } from './styles'
 import ActionButton from '../ActionButton'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../Loader'
 
 type actionProps = {
   id: number
@@ -24,7 +25,7 @@ const Feed = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setPostsFeed(data)
+      setPostsFeed(data.results)
       // refetch()
     }
   }, [data, isSuccess, refetch, postsFeed, actionResponse])
@@ -39,7 +40,7 @@ const Feed = () => {
   }
 
   if (isLoading) {
-    return <p>Carregando posts...</p>
+    return <Loader />
   }
 
   const handleNavigate = (detailId: number, e: React.MouseEvent) => {
@@ -53,7 +54,7 @@ const Feed = () => {
     <>
       <Compose />
       {isSuccess && (
-        <div>
+        <FeedContainer>
           {postsFeed?.map((post) => {
             return (
               <>
@@ -90,7 +91,7 @@ const Feed = () => {
               </>
             )
           })}
-        </div>
+        </FeedContainer>
       )}
     </>
   )
