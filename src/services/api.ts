@@ -8,9 +8,10 @@ type actionType = {
 const postsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // returns all posts
-    getPosts: builder.query<Pagination, void>({
-      // query: (user?: string) => ''
-      query: () => '/apupo/'
+    getPosts: builder.query<Pagination, number>({
+      query: (pageNumber) => ({
+        url: `/apupo/?page=${pageNumber}`
+      })
     }),
     // creates a post
     createPost: builder.mutation<
@@ -20,7 +21,6 @@ const postsApi = baseApi.injectEndpoints({
       query: (content) => ({
         url: '/apupo/create/',
         method: 'POST',
-        // headers: { 'X-CSRFToken': csrftoken, 'Content-Type': 'application/json',  },
         body: content
       })
     }),
