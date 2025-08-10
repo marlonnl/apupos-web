@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Characters, ComposeForm, SidePanel } from './styles'
-import { useCreatePostMutation, useGetPostsQuery } from '../../services/api'
+import {
+  useCreatePostMutation,
+  useGetPostsQuery,
+  useGetUserFeedQuery
+} from '../../services/api'
 import { MAX_LENGTH } from '../../utils'
 
 const Compose = () => {
@@ -9,7 +13,7 @@ const Compose = () => {
   const [charsLeft, setCharsLeft] = useState<number>(MAX_LENGTH)
 
   const [createPostMutation, { isSuccess }] = useCreatePostMutation()
-  const { refetch } = useGetPostsQuery()
+  const { refetch } = useGetUserFeedQuery({ pageNumber: 1 })
 
   // submit new post
   const handleSubmit = (

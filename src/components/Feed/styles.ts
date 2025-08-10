@@ -4,6 +4,7 @@ import { color } from '../../styles/colors'
 export const FeedContainer = styled.div`
   overflow-y: scroll;
   height: 100%;
+  position: 'sticky';
 `
 
 export const PostContainer = styled.div`
