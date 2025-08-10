@@ -5,12 +5,25 @@ type actionType = {
   action: 'like' | 'unlike' | 'rt'
 }
 
+export type userGetPostsQuery = {
+  pageNumber: number | null
+  username?: string | null
+}
+
 const postsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // returns all posts
     getPosts: builder.query<Pagination, number>({
       query: (pageNumber) => ({
         url: `/apupo/?page=${pageNumber}`
+      })
+    }),
+    // all posts from a designated username
+    getUserFeed: builder.query<Pagination, userGetPostsQuery>({
+      query: (userFeedContext) => ({
+        url: `/apupo/?page=${userFeedContext.pageNumber}${
+          userFeedContext.username ? '&username={userFeedContext.username}' : ''
+        }`
       })
     }),
     // creates a post
@@ -42,6 +55,7 @@ export const {
   useGetPostsQuery,
   useCreatePostMutation,
   useActionPostMutation,
-  useGetPostDetailQuery
+  useGetPostDetailQuery,
+  useGetUserFeedQuery
 } = postsApi
 export default postsApi
