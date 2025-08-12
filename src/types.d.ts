@@ -24,6 +24,16 @@ declare type PostsAPI = {
     id: number
     content: string
     likes: number
+    user: {
+      id: number
+      username: string
+      first_name: string | null
+      bio: string | null
+      site: string | null
+      location: string | null
+      following_count: number
+      followers_count: number
+    }
   }
   created_at: string
 }

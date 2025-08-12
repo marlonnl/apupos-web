@@ -58,7 +58,13 @@ const EditProfile = () => {
 
   const updateData = () => {
     if (data) {
-      setProfileData(data[0])
+      const newProfileData = {
+        name: data.profile.first_name,
+        bio: data.profile.bio,
+        site: data.profile.site,
+        location: data.profile.location
+      }
+      setProfileData(newProfileData)
     }
   }
 
@@ -74,7 +80,7 @@ const EditProfile = () => {
         {data && (
           <>
             <ModalHeader>
-              <h2>Editar perfil de {data[0].username}</h2>
+              <h2>Editar perfil de {data.username}</h2>
               <CloseIcon size={'24px'} />
             </ModalHeader>
             <ModalForm>

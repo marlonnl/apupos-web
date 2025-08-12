@@ -79,7 +79,7 @@ const User = () => {
                   </UserHeaderNavContainer>
                 </UserHeader>
                 <UserInfo>
-                  <h2>{data[0].name}</h2>
+                  <h2>{data.profile.first_name}</h2>
                   <div>
                     <h3>@{username}</h3>
                     <span className="doesfollow">segue você</span>
@@ -98,7 +98,7 @@ const User = () => {
                       <span>&nbsp;apupos</span>
                     </a>
                   </UserInfoItem>
-                  <UserBio>{data[0].bio}</UserBio>
+                  <UserBio>{data.profile.bio}</UserBio>
                 </UserInfo>
               </>
             )}
