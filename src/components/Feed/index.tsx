@@ -36,7 +36,8 @@ const Feed = () => {
   // const { data, isLoading, isSuccess, refetch } = useGetPostsQuery(page)
   const { data, isLoading, isSuccess, refetch } = useGetUserFeedQuery(
     {
-      pageNumber: page
+      pageNumber: page,
+      username: 'marlonn'
     },
     {
       refetchOnMountOrArgChange: true
