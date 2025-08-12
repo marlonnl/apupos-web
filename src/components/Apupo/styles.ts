@@ -49,4 +49,11 @@ export const Retweet = styled.div`
   border-radius: 8px;
   padding: 12px;
   margin-top: 8px;
+
+  span {
+    color: ${color.secondaryText};
+    font-size: 13px;
+    display: block;
+    margin-bottom: 12px;
+  }
 `

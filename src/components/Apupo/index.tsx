@@ -56,7 +56,17 @@ const Apupo = ({
           </PostInfo>
           <div onClick={(e) => handleNavigate(id, e)}>
             <PostText>{content}</PostText>
-            {parent && <Retweet>{parent.content}</Retweet>}
+            {parent && (
+              <Retweet>
+                <span>
+                  repupado from{' '}
+                  <Link to={`/user/${parent.user.username}`}>
+                    @{parent.user.username}
+                  </Link>
+                </span>
+                <p>{parent.content}</p>
+              </Retweet>
+            )}
           </div>
         </PostContent>
       </Container>
