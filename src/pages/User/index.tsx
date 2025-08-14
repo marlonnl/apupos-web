@@ -16,17 +16,30 @@ import {
   PersonFillDash,
   PersonLinesFill
 } from 'react-bootstrap-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import EditProfile from '../../components/EditProfile'
-import { useGetProfileQuery } from '../../services/api_profile'
+import {
+  FollowProfile,
+  useFollowMutation,
+  useGetProfileQuery
+} from '../../services/api_profile'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 const User = () => {
+  const dispatch = useDispatch()
   const { username } = useParams() as { username: string }
+  const { user: userStateData } = useSelector(
+    (state: RootReducer) => state.authSlice
+  )
+
+  const isMe = username == userStateData?.username
 
   const [modalVisible, setModalVisible] = useState<boolean>(false)
-  const [isFollowing, setIsFollowing] = useState<boolean>(false)
+  const [isFollowing, setIsFollowing] = useState<boolean>()
 
-  const { data } = useGetProfileQuery(username)
+  const { data, isSuccess } = useGetProfileQuery(username)
+  const [followAction, { isSuccess: followSuccess }] = useFollowMutation()
 
   function onClickEditProfile() {
     setModalVisible(true)
@@ -37,8 +50,32 @@ const User = () => {
   }
 
   const handleFollow = async () => {
-    const a = 1
+    const followState: 'follow' | 'unfollow' = isFollowing
+      ? 'unfollow'
+      : 'follow'
+
+    try {
+      // console.log('followstate ', followState)
+      await followAction({ username, action: followState })
+
+      if (followSuccess) {
+        console.log('alterando...', isFollowing)
+        setIsFollowing(!isFollowing)
+        console.log('alterado...', isFollowing)
+      }
+    } catch (error) {
+      console.log('follow error', error)
+    }
   }
+
+  useEffect(() => {
+    console.log('user detail: ', data)
+    if (data) {
+      setIsFollowing(data.is_following)
+      console.log('isFollowing', isFollowing)
+      console.log('isMe', isMe)
+    }
+  }, [data, isSuccess])
 
   return (
     <>
@@ -60,20 +97,24 @@ const User = () => {
                   <UserHeaderNavContainer>
                     <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
                     <UserHeaderNavbar>
-                      <button onClick={onClickEditProfile}>
-                        <PersonLinesFill /> editar perfil
-                      </button>
-                      <button onClick={handleFollow}>
-                        {!isFollowing ? (
-                          <>
-                            <PersonFillAdd /> seguir
-                          </>
-                        ) : (
-                          <>
-                            <PersonFillDash /> deixar de seguir
-                          </>
-                        )}
-                      </button>
+                      {isMe && (
+                        <button onClick={onClickEditProfile}>
+                          <PersonLinesFill /> editar perfil
+                        </button>
+                      )}
+                      {!isMe && (
+                        <button onClick={() => handleFollow()}>
+                          {!isFollowing ? (
+                            <>
+                              <PersonFillAdd /> seguir
+                            </>
+                          ) : (
+                            <>
+                              <PersonFillDash /> deixar de seguir
+                            </>
+                          )}
+                        </button>
+                      )}
                       <button>...</button>
                     </UserHeaderNavbar>
                   </UserHeaderNavContainer>
@@ -82,15 +123,21 @@ const User = () => {
                   <h2>{data.profile.first_name}</h2>
                   <div>
                     <h3>@{username}</h3>
-                    <span className="doesfollow">segue você</span>
+                    {data.follows_me && (
+                      <span className="doesfollow">segue você</span>
+                    )}
                   </div>
                   <UserInfoItem>
                     <a href="#">
-                      <span className="number">0</span>
+                      <span className="number">
+                        {data.profile.followers_count}
+                      </span>
                       <span>&nbsp;seguidores</span>
                     </a>
                     <a href="#">
-                      <span className="number">0</span>
+                      <span className="number">
+                        {data.profile.following_count}
+                      </span>
                       <span>&nbsp;seguindo</span>
                     </a>
                     <a href="#">
