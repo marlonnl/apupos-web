@@ -5,18 +5,20 @@ declare type Pagination = {
   results: PostsAPI[]
 }
 
+declare type ProfileType = {
+  id: number
+  username: string
+  first_name: string | null
+  bio: string | null
+  site: string | null
+  location: string | null
+  following_count: number
+  followers_count: number
+}
+
 declare type PostsAPI = {
   id: number
-  user: {
-    id: number
-    username: string
-    first_name: string | null
-    bio: string | null
-    site: string | null
-    location: string | null
-    following_count: number
-    followers_count: number
-  }
+  user: ProfileType
   content: string
   likes: number
   is_retweet?: boolean
@@ -24,29 +26,13 @@ declare type PostsAPI = {
     id: number
     content: string
     likes: number
-    user: {
-      id: number
-      username: string
-      first_name: string | null
-      bio: string | null
-      site: string | null
-      location: string | null
-      following_count: number
-      followers_count: number
-    }
+    user: ProfileType
   }
   created_at: string
 }
 
 declare type loginResponseType = {
-  user: {
-    id: number
-    username: string
-    name: string
-    bio: string
-    site: string
-    location: string
-  }
+  user: ProfileType
   tokens?: {
     access?: string
     refresh?: string
