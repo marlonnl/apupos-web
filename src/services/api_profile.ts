@@ -23,6 +23,11 @@ export type UpdateProfile = {
   location: string
 }
 
+export type FollowProfile = {
+  username: string
+  action: 'follow' | 'unfollow'
+}
+
 const profileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query<ProfileResponseAPI, string>({
@@ -37,9 +42,20 @@ const profileApi = baseApi.injectEndpoints({
         method: 'POST',
         body: updateProfileContext
       })
+    }),
+    follow: builder.mutation<unknown, FollowProfile>({
+      query: (followContext) => ({
+        url: `/profile/${followContext.username}/follow/`,
+        method: 'POST',
+        body: { action: followContext.action }
+      })
     })
   })
 })
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = profileApi
+export const {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+  useFollowMutation
+} = profileApi
 export default profileApi

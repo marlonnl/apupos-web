@@ -13,6 +13,11 @@ type registerType = {
   password2: string
 }
 
+type authResponseType = {
+  authenticated: boolean
+  user: ProfileType
+}
+
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // TODO: alterar type do primeiro valor (retorno)
@@ -30,7 +35,7 @@ const authApi = baseApi.injectEndpoints({
         body: registerContext
       })
     }),
-    authenticated: builder.query<boolean, void>({
+    authenticated: builder.query<authResponseType, void>({
       query: () => ({
         url: '/auth/authenticated/',
         method: 'POST'
