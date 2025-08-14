@@ -45,13 +45,15 @@ const Apupo = ({
         </div>
         <PostContent>
           <PostInfo>
-            <Link to={`/user/${user.username}/`}>
-              <p className="name">
-                {user.first_name ? user.first_name : user.username}
-              </p>
-            </Link>
+            <div>
+              <Link to={`/user/${user.username}/`}>
+                <p className="name">
+                  {user.first_name ? user.first_name : user.username}
+                </p>
+              </Link>
+              <p className="user">@{user.username}</p>
+            </div>
 
-            <p className="user">@{user.username}</p>
             <p className="time">{formatDate(created_at)}</p>
           </PostInfo>
           <div onClick={(e) => handleNavigate(id, e)}>
