@@ -11,7 +11,7 @@ import {
 import { useLoginMutation } from '../../services/api_auth'
 import ErrorBox from '../../components/ErrorBox'
 import { useDispatch, useSelector } from 'react-redux'
-import { authentication } from '../../store/reducers/auth'
+import { authentication, authState } from '../../store/reducers/auth'
 import { RootReducer } from '../../store'
 import { Link, useNavigate } from 'react-router-dom'
 import Loader from '../../components/Loader'
@@ -31,7 +31,7 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLogged } = useSelector((state: RootReducer) => state.authSlice)
+  const { authenticated } = useSelector((state: RootReducer) => state.authSlice)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataLogin({
@@ -58,15 +58,11 @@ const Login = () => {
   useEffect(() => {
     // console.log('sucesso!!!')
     if (isSuccess && data) {
-      console.log(data)
-      const authData = {
-        id: data.user.id,
-        username: data.user.username,
-        name: data.user.name,
-        bio: data.user.bio,
-        site: data.user.site,
-        location: data.user.location
-        // email: data.user.email
+      // console.log('login', data)
+
+      const authData: authState = {
+        authenticated: true,
+        user: data.user
       }
 
       dispatch(authentication(authData))

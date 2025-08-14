@@ -8,6 +8,8 @@ import { updateTokens } from '../../store/reducers/token'
 import { useAuthenticatedQuery } from '../../services/api_auth'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../../components/Loader'
+import { authentication, authState } from '../../store/reducers/auth'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -17,18 +19,34 @@ const Home = () => {
   const { access, refresh: refreshed } = useSelector(
     (state: RootReducer) => state.tokenSlice
   )
-  const { isLogged } = useSelector((state: RootReducer) => state.authSlice)
+  const { authenticated, user: userState } = useSelector(
+    (state: RootReducer) => state.authSlice
+  )
 
-  const { isSuccess, data, status } = useAuthenticatedQuery()
+  const { isSuccess, data, status, isError, isFetching } =
+    useAuthenticatedQuery()
 
   useEffect(() => {
     // fulfilled | rejected
     if (status === 'rejected') {
       navigate('/login')
-    } else {
-      // solicitar os dados do usuário
+    } else if (data) {
+      const authData = {
+        authenticated: true,
+        user: data.user
+      }
+
+      dispatch(authentication(authData))
     }
   }, [status, navigate])
+
+  if (isFetching) {
+    return <Loader />
+  }
+
+  if (isError) {
+    return <p>Ocorreu um erro inesperado. :(</p>
+  }
 
   return (
     <div className="container">
