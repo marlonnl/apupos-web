@@ -21,7 +21,7 @@ const postsApi = baseApi.injectEndpoints({
     // all posts from a designated username
     getUserFeed: builder.query<Pagination, userGetPostsQuery>({
       query: (userFeedContext) => ({
-        url: `/apupo/?page=${userFeedContext.pageNumber}${
+        url: `/apupo/feed/?page=${userFeedContext.pageNumber}${
           userFeedContext.username
             ? `&username=${userFeedContext.username}`
             : ''
