@@ -8,20 +8,29 @@ type actionType = {
 export type userGetPostsQuery = {
   pageNumber: number | null
   username?: string | null
+  feed: boolean
 }
 
 const postsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // returns all posts
-    getPosts: builder.query<Pagination, number>({
-      query: (pageNumber) => ({
-        url: `/apupo/?page=${pageNumber}`
+    // TODO: username in context
+    // /api/apupo/?page={paege}&username={username}
+    getPosts: builder.query<Pagination, userGetPostsQuery>({
+      query: (userPostsContext) => ({
+        url: `/apupo/?page=${userPostsContext.pageNumber}${
+          userPostsContext.username
+            ? `&username=${userPostsContext.username}`
+            : ''
+        }`
       })
     }),
     // all posts from a designated username
     getUserFeed: builder.query<Pagination, userGetPostsQuery>({
       query: (userFeedContext) => ({
-        url: `/apupo/feed/?page=${userFeedContext.pageNumber}${
+        url: `/apupo${userFeedContext.feed ? '/feed/' : '/'}?page=${
+          userFeedContext.pageNumber
+        }${
           userFeedContext.username
             ? `&username=${userFeedContext.username}`
             : ''
