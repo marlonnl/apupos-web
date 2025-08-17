@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../components/Loader'
 import { authentication, authState } from '../../store/reducers/auth'
+import Compose from '../../components/Compose'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -35,7 +36,7 @@ const Home = () => {
         authenticated: true,
         user: data.user
       }
-
+      navigate('/')
       dispatch(authentication(authData))
     }
   }, [status, navigate])
@@ -55,7 +56,8 @@ const Home = () => {
           <Sidebar />
           <Content>
             <Logo />
-            <Feed />
+            {/* <Compose /> */}
+            <Feed showFeed={true} canPost={true} />
           </Content>
         </Main>
       )}

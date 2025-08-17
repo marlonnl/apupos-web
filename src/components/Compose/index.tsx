@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Characters, ComposeForm, SidePanel } from './styles'
 import {
   useCreatePostMutation,
@@ -7,13 +7,22 @@ import {
 } from '../../services/api'
 import { MAX_LENGTH } from '../../utils'
 
-const Compose = () => {
+type Props = {
+  onClick: (e: React.MouseEvent, newApupo: string) => void
+}
+
+const Compose = ({ onClick }: Props) => {
   const [newApupo, setNewApupo] = useState('')
   const [canPost, setCanPost] = useState(true)
   const [charsLeft, setCharsLeft] = useState<number>(MAX_LENGTH)
 
   const [createPostMutation, { isSuccess }] = useCreatePostMutation()
-  const { refetch } = useGetUserFeedQuery({ pageNumber: 1 })
+  const { refetch } = useGetUserFeedQuery(
+    { pageNumber: 1, feed: true },
+    {
+      refetchOnMountOrArgChange: true
+    }
+  )
 
   // submit new post
   const handleSubmit = (
@@ -36,7 +45,8 @@ const Compose = () => {
 
   useEffect(() => {
     refetch()
-  }, [isSuccess, refetch])
+    setNewApupo('')
+  }, [isSuccess, refetch, onClick])
 
   // verifica se a nova postagem está dentro do limite de caracteres
   useEffect(() => {
@@ -53,7 +63,7 @@ const Compose = () => {
 
   return (
     <ComposeForm>
-      <form>
+      <form onSubmit={() => setNewApupo('')}>
         <textarea
           // type="text"
           name="apupo"
@@ -67,7 +77,8 @@ const Compose = () => {
           <Characters lenght={charsLeft}>{charsLeft}</Characters>
           <button
             type="submit"
-            onClick={(e) => handleSubmit(e, newApupo)}
+            // onClick={(e) => handleSubmit(e, newApupo)}
+            onClick={(e) => onClick(e, newApupo)}
             disabled={!canPost}
           >
             apupe

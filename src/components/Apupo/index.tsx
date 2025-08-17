@@ -2,6 +2,11 @@ import { Container, PostContent, PostInfo, PostText, Retweet } from './styles'
 import { useActionPostMutation } from '../../services/api'
 import { formatDate } from '../../utils'
 import { Link, useNavigate } from 'react-router-dom'
+import {
+  Calendar,
+  Calendar2DateFill,
+  CalendarFill
+} from 'react-bootstrap-icons'
 
 type actionProps = {
   id: number
@@ -54,7 +59,9 @@ const Apupo = ({
               <p className="user">@{user.username}</p>
             </div>
 
-            <p className="time">{formatDate(created_at)}</p>
+            <p className="time" title={created_at}>
+              <Calendar />
+            </p>
           </PostInfo>
           <div onClick={(e) => handleNavigate(id, e)}>
             <PostText>{content}</PostText>
