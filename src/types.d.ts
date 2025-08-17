@@ -29,6 +29,7 @@ declare type PostsAPI = {
     user: ProfileType
   }
   created_at: string
+  is_liked?: boolean
 }
 
 declare type loginResponseType = {
