@@ -5,11 +5,12 @@ export const UserContainer = styled.div`
   width: 100%;
   max-width: 560px;
   border-left: 1px solid ${color.separator};
-  padding-left: 16px;
+  /* padding-left: 16px; */
 `
 
 export const UserHeader = styled.div`
   margin-top: 16px;
+  padding-left: 16px;
   display: flex;
   flex-direction: column;
 `
@@ -47,7 +48,8 @@ export const UserHeaderNavbar = styled.div`
 `
 
 export const UserInfo = styled.div`
-  margin-top: 8px;
+  margin: 8px 0 32px 0;
+  padding-left: 16px;
 
   h3 {
     font-size: 14px;

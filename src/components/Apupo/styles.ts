@@ -11,6 +11,7 @@ export const PostContent = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 16px;
+  width: 100%;
 
   p {
     display: inline;
@@ -27,12 +28,13 @@ export const PostContent = styled.div`
   }
 
   & .time {
-    justify-self: flex-end;
+    font-size: 13px;
   }
 `
 
 export const PostText = styled.div`
   max-width: 100%;
+  width: 100%;
   overflow-wrap: break-word;
   /* margin-top: 6px; */
   line-height: 20px;
@@ -40,8 +42,15 @@ export const PostText = styled.div`
 
 export const PostInfo = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
   margin-bottom: 8px;
   text-overflow: hidden;
+
+  .time {
+    justify-self: flex-end;
+  }
 `
 
 export const Retweet = styled.div`

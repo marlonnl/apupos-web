@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { color } from '../../styles/colors'
 
 export const FeedContainer = styled.div`
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   height: 100%;
   position: 'sticky';
 `
