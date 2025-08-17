@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { useDoLogoutMutation } from '../../services/api_auth'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
   const navigate = useNavigate()
-  const { isLogged, user } = useSelector(
+  const { authenticated, user: userStateData } = useSelector(
     (state: RootReducer) => state.authSlice
   )
   const [logout, { isSuccess }] = useDoLogoutMutation()
@@ -31,39 +31,43 @@ const Sidebar = () => {
         <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
         <div>
           <h3>
-            <b>nome do user</b>
+            <b>{userStateData?.first_name}</b>
           </h3>
-          <p>@{user?.username}</p>
+          <p>@{userStateData?.username}</p>
         </div>
       </UserBar>
 
       <LinkList>
         <LinkItem>
-          <a href="#">
+          <Link to={'/'}>
             <HouseDoorFill size={iconSize} />
             <p>
               <b>Home</b>
             </p>
-          </a>
+          </Link>
         </LinkItem>
-        <LinkItem>
-          <a href="#">
-            <Bell size={iconSize} />
-            <p>Notificações</p>
-          </a>
-        </LinkItem>
-        <LinkItem>
-          <a href="#">
-            <Person size={iconSize} />
-            <p>Perfil</p>
-          </a>
-        </LinkItem>
-        <LinkItem>
-          <a href="#">
-            <Gear size={iconSize} />
-            <p>Configurações</p>
-          </a>
-        </LinkItem>
+        {userStateData && (
+          <>
+            <LinkItem>
+              <a href="#">
+                <Bell size={iconSize} />
+                <p>Notificações</p>
+              </a>
+            </LinkItem>
+            <LinkItem>
+              <Link to={`/user/${userStateData?.username}`}>
+                <Person size={iconSize} />
+                <p>Perfil</p>
+              </Link>
+            </LinkItem>
+            <LinkItem>
+              <a href="#">
+                <Gear size={iconSize} />
+                <p>Configurações</p>
+              </a>
+            </LinkItem>
+          </>
+        )}
       </LinkList>
       <button onClick={onLogout}>Logout!</button>
     </SidebarSection>
