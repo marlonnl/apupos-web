@@ -14,6 +14,7 @@ declare type ProfileType = {
   location: string | null
   following_count: number
   followers_count: number
+  posts: number
 }
 
 declare type PostsAPI = {

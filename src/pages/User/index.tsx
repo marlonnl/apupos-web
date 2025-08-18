@@ -159,7 +159,7 @@ const User = () => {
                       <span>&nbsp;seguindo</span>
                     </a>
                     <a href="#">
-                      <span className="number">0</span>
+                      <span className="number">{data.profile.posts}</span>
                       <span>&nbsp;apupos</span>
                     </a>
                   </UserInfoItem>

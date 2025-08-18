@@ -11,6 +11,7 @@ export type ProfileResponseAPI = {
     location: string
     following_count: number
     followers_count: number
+    posts: number
   }
   is_following: boolean
   follows_me: boolean
