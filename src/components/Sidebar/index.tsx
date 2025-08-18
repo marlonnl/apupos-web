@@ -1,4 +1,12 @@
-import { Bell, Gear, HouseDoorFill, Person } from 'react-bootstrap-icons'
+import {
+  Bell,
+  Gear,
+  HouseDoorFill,
+  Person,
+  PersonFillX,
+  PersonX,
+  ToggleOff
+} from 'react-bootstrap-icons'
 import { LinkItem, LinkList, SidebarSection, UserBar } from './styles'
 import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
@@ -16,7 +24,7 @@ const Sidebar = () => {
 
   const onLogout = async () => {
     console.log('logging out')
-    await logout()
+    // await logout()
   }
 
   useEffect(() => {
@@ -69,7 +77,16 @@ const Sidebar = () => {
           </>
         )}
       </LinkList>
-      <button onClick={onLogout}>Logout!</button>
+      <hr></hr>
+      <LinkList>
+        <LinkItem>
+          <button onClick={onLogout}>
+            <PersonX />
+            Logout
+          </button>
+        </LinkItem>
+      </LinkList>
+      {/* <button onClick={onLogout}>Logout!</button> */}
     </SidebarSection>
   )
 }

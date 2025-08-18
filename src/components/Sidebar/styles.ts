@@ -6,6 +6,11 @@ export const SidebarSection = styled.aside`
   max-width: 240px;
   width: 100%;
   padding-right: 12px;
+
+  hr {
+    color: ${color.separator};
+    margin: 16px 0;
+  }
 `
 
 export const UserBar = styled.div`
@@ -39,7 +44,8 @@ export const LinkList = styled.ul`
 `
 
 export const LinkItem = styled.li`
-  a {
+  a,
+  button {
     padding: 16px;
     display: flex;
     align-items: end;
@@ -50,7 +56,21 @@ export const LinkItem = styled.li`
     }
   }
 
-  a:hover {
+  button {
+    font-size: 18px;
+    width: 100%;
+    border: 0;
+    outline: none;
+    color: ${color.text};
+    background-color: transparent;
+    cursor: pointer;
+
+    display: flex;
+    gap: 8px;
+  }
+
+  a:hover,
+  button:hover {
     background-color: ${color.bgItemHover};
   }
 `
