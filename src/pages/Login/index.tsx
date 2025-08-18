@@ -51,10 +51,6 @@ const Login = () => {
     }
   }
 
-  if (isSuccess) {
-    navigate('/')
-  }
-
   useEffect(() => {
     // console.log('sucesso!!!')
     if (isSuccess && data) {
@@ -67,7 +63,7 @@ const Login = () => {
 
       dispatch(authentication(authData))
       // dispatch(refresh())
-      navigate('/')
+      navigate('..')
       // console.log(data)
     }
     // if (data && data.tokens.access && data.tokens.refresh) {
@@ -86,7 +82,7 @@ const Login = () => {
       <Logo />
       <Title>Login</Title>
 
-      {/* {isError && error && <ErrorBox errordata={error} />} */}
+      {isError && <ErrorBox errordata={error} />}
 
       <Panels>
         <RegisterForm>
