@@ -4,6 +4,7 @@ import { useRegisterMutation } from '../../services/api_auth'
 import Logo from '../../components/Logo'
 import SideAuth from '../../components/SideAuth'
 import ErrorBox from '../../components/ErrorBox'
+import { useNavigate } from 'react-router-dom'
 
 type formDataType = {
   username: string
@@ -13,6 +14,7 @@ type formDataType = {
 }
 
 const Register = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<formDataType>({
     username: '',
     email: '',
@@ -37,7 +39,8 @@ const Register = () => {
     try {
       await register(formData)
       if (isSuccess) {
-        console.log("registro concluido!!")
+        console.log('registro concluido!!')
+        navigate('/login')
       }
     } catch (e) {
       console.log(e)
