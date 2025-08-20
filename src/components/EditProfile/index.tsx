@@ -19,9 +19,12 @@ type UpdateProfileType = {
   location: string
 }
 
-const EditProfile = () => {
-  const username = 'marlonn'
+type Props = {
+  username: string
+  onClick: () => void
+}
 
+const EditProfile = ({ username, onClick }: Props) => {
   const initialProfileDate = {
     name: '',
     bio: '',
@@ -31,7 +34,7 @@ const EditProfile = () => {
 
   const [profileData, setProfileData] =
     useState<UpdateProfileType>(initialProfileDate)
-  const { data, error, isSuccess } = useGetProfileQuery(username)
+  const { data, isSuccess } = useGetProfileQuery(username)
   const [updateProfile, { isSuccess: updateIsSuccess }] =
     useUpdateProfileMutation()
 
@@ -81,7 +84,7 @@ const EditProfile = () => {
           <>
             <ModalHeader>
               <h2>Editar perfil de {data.username}</h2>
-              <CloseIcon size={'24px'} />
+              <CloseIcon size={'24px'} onClick={onClick} />
             </ModalHeader>
             <ModalForm>
               <label>Nome</label>
@@ -117,7 +120,7 @@ const EditProfile = () => {
               />
 
               <ModalFormButtons>
-                <button>cancelar</button>
+                <button onClick={onClick}>cancelar</button>
                 <button onClick={(e) => handleUpdateProfile(e)}>
                   confirmar
                 </button>
