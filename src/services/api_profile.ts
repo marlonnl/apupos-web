@@ -15,6 +15,10 @@ export type ProfileResponseAPI = {
   }
   is_following: boolean
   follows_me: boolean
+  follow: {
+    following: []
+    followers: []
+  }
 }
 
 export type UpdateProfile = {
