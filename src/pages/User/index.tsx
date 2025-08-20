@@ -26,16 +26,22 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import Feed from '../../components/Feed'
+import FollowList from '../../components/FollowList'
 
 const User = () => {
+  const profileContent = ''
+
   const { username } = useParams() as { username: string }
   const { user: userStateData } = useSelector(
     (state: RootReducer) => state.authSlice
   )
 
-  const [isMe, setIsMe] = useState<boolean>()
+  const [isMe, setIsMe] = useState<boolean>(username == userStateData?.username)
 
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [followersList, setFollowersList] = useState<boolean>(false)
+  const [followingList, setFollowingList] = useState<boolean>(false)
+
   const [isFollowing, setIsFollowing] = useState<boolean>()
 
   const { data, isSuccess, refetch } = useGetProfileQuery(username)
@@ -43,10 +49,6 @@ const User = () => {
 
   function onClickEditProfile() {
     setModalVisible(true)
-  }
-
-  const closeModal = () => {
-    setModalVisible(false)
   }
 
   const handleFollow = async () => {
@@ -68,27 +70,67 @@ const User = () => {
     }
   }
 
-  const doFollowState = () => {
-    if (isFollowing == undefined) {
-      setIsFollowing(data?.is_following)
-      console.log('undefeined!!!', data?.is_following)
-    }
+  // const doFollowState = () => {
+  //   if (isFollowing == undefined) {
+  //     setIsFollowing(data?.is_following)
+  //     console.log('undefeined!!!', data?.is_following)
+  //   }
 
-    if (isSuccess) {
-      if (data.is_following == false) {
-        setIsFollowing(false)
-      } else if (data.is_following == true) {
-        setIsFollowing(true)
-      }
+  //   if (isSuccess) {
+  //     if (data.is_following == false) {
+  //       setIsFollowing(false)
+  //     } else if (data.is_following == true) {
+  //       setIsFollowing(true)
+  //     }
 
-      console.log('function follow state', isFollowing, data.is_following)
-    }
-  }
+  //     console.log('function follow state', isFollowing, data.is_following)
+  //   }
+  // }
 
   useEffect(() => {
     setIsMe(username == userStateData?.username)
     // setIsFollowing(!isFollowing)
   }, [data, isSuccess, isFollowing])
+
+  const showModal = () => {
+    setModalVisible(true)
+  }
+  const closeModal = () => {
+    setModalVisible(false)
+
+    refetch()
+  }
+
+  const checkContent = () => {
+    if (!followersList && !followingList) {
+      return <Feed usernameFeed={username} showFeed={false} />
+    }
+
+    if (followersList) {
+      return <FollowList list={data?.follow.followers} title="Seguidores" />
+    }
+
+    if (followingList) {
+      return <FollowList list={data?.follow.following} title="Seguindo" />
+    }
+  }
+
+  const handleFollowersList = (mode: any) => {
+    setModalVisible(false)
+
+    if (mode === 'follower') {
+      setFollowersList(true)
+      setFollowingList(false)
+    } else if (mode === 'following') {
+      setFollowersList(false)
+      setFollowingList(true)
+    } else if (mode === 'feed') {
+      setFollowersList(false)
+      setFollowingList(false)
+    }
+
+    checkContent()
+  }
 
   return (
     <>
@@ -102,10 +144,19 @@ const User = () => {
             {data && (
               <>
                 <UserHeader>
-                  <div style={{ marginBottom: '16px' }}>
+                  <div
+                    style={{
+                      marginBottom: '16px',
+                      display: 'flex',
+                      gap: '24px'
+                    }}
+                  >
                     <Link to="/">
                       <ArrowLeft size={22} />
                     </Link>
+                    <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                      Perfil
+                    </p>
                   </div>
                   <UserHeaderNavContainer>
                     <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
@@ -146,19 +197,19 @@ const User = () => {
                     )}
                   </div>
                   <UserInfoItem>
-                    <a href="#">
+                    <a onClick={() => handleFollowersList('follower')}>
                       <span className="number">
                         {data.profile.followers_count}
                       </span>
                       <span>&nbsp;seguidores</span>
                     </a>
-                    <a href="#">
+                    <a onClick={() => handleFollowersList('following')}>
                       <span className="number">
                         {data.profile.following_count}
                       </span>
                       <span>&nbsp;seguindo</span>
                     </a>
-                    <a href="#">
+                    <a onClick={() => handleFollowersList('feed')}>
                       <span className="number">{data.profile.posts}</span>
                       <span>&nbsp;apupos</span>
                     </a>
@@ -167,11 +218,18 @@ const User = () => {
                 </UserInfo>
               </>
             )}
-            <Feed usernameFeed={username} showFeed={false} />
+            {/* <Feed usernameFeed={username} showFeed={false} /> */}
+            {checkContent()}
           </UserContainer>
         </Main>
       </div>
-      <div>{modalVisible && <EditProfile />}</div>
+      <div>
+        {modalVisible && (
+          <EditProfile username={username} onClick={closeModal} />
+        )}
+        {/* {followersList && <FollowList list={data?.follow.followers} />}
+        {followingList && <FollowList list={data?.follow.following} />} */}
+      </div>
     </>
   )
 }
