@@ -8,23 +8,30 @@ import {
   ToggleOff
 } from 'react-bootstrap-icons'
 import { LinkItem, LinkList, SidebarSection, UserBar } from './styles'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { useDoLogoutMutation } from '../../services/api_auth'
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { logout } from '../../store/reducers/auth'
 
 const Sidebar = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { authenticated, user: userStateData } = useSelector(
     (state: RootReducer) => state.authSlice
   )
-  const [logout, { isSuccess }] = useDoLogoutMutation()
+  const [doLogout, { isSuccess }] = useDoLogoutMutation()
   const iconSize = 22
 
   const onLogout = async () => {
     console.log('logging out')
-    // await logout()
+    await doLogout()
+
+    if (isSuccess) {
+      dispatch(logout())
+      navigate('/login')
+    }
   }
 
   useEffect(() => {
@@ -69,10 +76,10 @@ const Sidebar = () => {
               </Link>
             </LinkItem>
             <LinkItem>
-              <a href="#">
+              <Link to="/config">
                 <Gear size={iconSize} />
                 <p>Configurações</p>
-              </a>
+              </Link>
             </LinkItem>
           </>
         )}

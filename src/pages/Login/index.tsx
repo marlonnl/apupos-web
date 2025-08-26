@@ -64,12 +64,14 @@ const Login = () => {
       dispatch(authentication(authData))
       // dispatch(refresh())
       navigate('..')
-      // console.log(data)
     }
     // if (data && data.tokens.access && data.tokens.refresh) {
     //   dispatch(authentication(data))
     //   localStorage.setItem('accessToken', data?.tokens.access)
     //   localStorage.setItem('refreshToken', data?.tokens.refresh)
+    // }
+    // if (authenticated) {
+    //   navigate('..')
     // }
   }, [isSuccess, data, dispatch, navigate])
 
