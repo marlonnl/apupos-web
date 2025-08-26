@@ -60,7 +60,7 @@ const Apupo = ({
             </div>
 
             <p className="time" title={created_at}>
-              <Calendar />
+              {created_at}
             </p>
           </PostInfo>
           <div onClick={(e) => handleNavigate(id, e)}>
