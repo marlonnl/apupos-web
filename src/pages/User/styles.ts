@@ -98,4 +98,11 @@ export const UserInfoItem = styled.div`
 export const UserBio = styled.p`
   margin-top: 12px;
   font-size: 14px;
+
+  display: flex;
+  align-items: center;
+
+  a:hover {
+    text-decoration: underline;
+  }
 `

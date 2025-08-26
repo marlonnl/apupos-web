@@ -12,6 +12,7 @@ import {
 } from './styles'
 import {
   ArrowLeft,
+  Link45deg,
   PersonFillAdd,
   PersonFillDash,
   PersonLinesFill
@@ -215,6 +216,16 @@ const User = () => {
                     </a>
                   </UserInfoItem>
                   <UserBio>{data.profile.bio}</UserBio>
+                  <UserBio>
+                    <Link45deg />
+                    <a
+                      href={data.profile.site}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {data.profile.site}
+                    </a>
+                  </UserBio>
                 </UserInfo>
               </>
             )}
