@@ -16,7 +16,7 @@ const FollowList = ({ list, title }: FollowListProps) => {
       {list?.map((person) => {
         return (
           <PostContainer key={person}>
-            <Link to={person}>@{person}</Link>
+            <Link to={`/user/${person}`}>@{person}</Link>
           </PostContainer>
         )
       })}
