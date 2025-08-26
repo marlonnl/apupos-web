@@ -11,8 +11,13 @@ import { useNavigate } from 'react-router-dom'
 import Loader from '../../components/Loader'
 import { authentication, authState } from '../../store/reducers/auth'
 import Compose from '../../components/Compose'
+import Config from '../../components/Config'
 
-const Home = () => {
+type Props = {
+  content: 'feed' | 'config'
+}
+
+const Home = ({ content }: Props) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   dispatch(updateTokens())
@@ -36,7 +41,7 @@ const Home = () => {
         authenticated: true,
         user: data.user
       }
-      navigate('/')
+      // navigate('/')
       dispatch(authentication(authData))
     }
   }, [status, navigate])
@@ -56,8 +61,11 @@ const Home = () => {
           <Sidebar />
           <Content>
             <Logo />
-            {/* <Compose /> */}
-            <Feed showFeed={true} canPost={true} />
+            {content == 'feed' ? (
+              <Feed showFeed={true} canPost={true} />
+            ) : (
+              <Config />
+            )}
           </Content>
         </Main>
       )}

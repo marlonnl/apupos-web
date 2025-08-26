@@ -32,7 +32,8 @@ const Rotas = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home content="feed" />} />
+      <Route path="/config" element={<Home content="config" />} />
       <Route path="/post/:postId" element={<Post />} />
       <Route path="/user/:username" element={<User />} />
       <Route path="/register" element={<Register />} />
