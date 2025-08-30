@@ -18,6 +18,11 @@ type authResponseType = {
   user: ProfileType
 }
 
+type changePasswordType = {
+  oldpassword: string
+  newpassword: string
+}
+
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // TODO: alterar type do primeiro valor (retorno)
@@ -46,6 +51,13 @@ const authApi = baseApi.injectEndpoints({
         url: `${BASE_API_AUTH_URL}logout/`,
         method: 'POST'
       })
+    }),
+    change_password: builder.mutation<any, changePasswordType>({
+      query: (changePasswordContext) => ({
+        url: '/auth/change-password/',
+        method: 'POST',
+        body: changePasswordContext
+      })
     })
   })
 })
@@ -54,6 +66,7 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useAuthenticatedQuery,
-  useDoLogoutMutation
+  useDoLogoutMutation,
+  useChange_passwordMutation
 } = authApi
 export default authApi
