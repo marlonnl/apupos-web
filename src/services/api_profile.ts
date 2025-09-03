@@ -12,6 +12,7 @@ export type ProfileResponseAPI = {
     following_count: number
     followers_count: number
     posts: number
+    image: string
   }
   is_following: boolean
   follows_me: boolean
@@ -26,6 +27,7 @@ export type UpdateProfile = {
   bio: string
   site: string
   location: string
+  image: any
 }
 
 export type FollowProfile = {
@@ -41,10 +43,11 @@ const profileApi = baseApi.injectEndpoints({
         method: 'GET'
       })
     }),
-    updateProfile: builder.mutation<unknown, UpdateProfile>({
+    updateProfile: builder.mutation<unknown, any | undefined>({
       query: (updateProfileContext) => ({
         url: `/profile-update/`,
         method: 'POST',
+        formData: true,
         body: updateProfileContext
       })
     }),
