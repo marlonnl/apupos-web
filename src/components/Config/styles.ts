@@ -34,4 +34,29 @@ export const ConfigForm = styled.form`
     outline: none;
     border-radius: 8px;
   }
+
+  img {
+    width: 96px;
+    height: 96px;
+  }
+`
+
+export const ConfigNav = styled.nav`
+  padding-left: 16px;
+
+  ul {
+    display: flex;
+    gap: 8px;
+  }
+
+  li {
+    display: block;
+    padding: 16px;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: ${color.bgItemHover};
+    /* filter: brightness(110%); */
+  }
 `
