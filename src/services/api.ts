@@ -58,6 +58,11 @@ const postsApi = baseApi.injectEndpoints({
     }),
     getPostDetail: builder.query<PostsAPI, number | string>({
       query: (id) => ({ url: `/apupo/${id}` })
+    }),
+    getMe: builder.query<ProfileType, void>({
+      query: () => ({
+        url: '/me/'
+      })
     })
   })
 })
@@ -67,6 +72,7 @@ export const {
   useCreatePostMutation,
   useActionPostMutation,
   useGetPostDetailQuery,
-  useGetUserFeedQuery
+  useGetUserFeedQuery,
+  useGetMeQuery
 } = postsApi
 export default postsApi
