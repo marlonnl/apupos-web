@@ -8,13 +8,14 @@ declare type Pagination = {
 declare type ProfileType = {
   id: number
   username: string
-  first_name: string | null
-  bio: string | null
-  site: string | null
-  location: string | null
+  first_name: string
+  bio: string
+  site: string
+  location: string
   following_count: number
   followers_count: number
   posts: number
+  image: string
 }
 
 declare type PostsAPI = {
