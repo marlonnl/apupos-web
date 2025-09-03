@@ -16,6 +16,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { PostActions } from '../Feed/styles'
 import ActionButton from '../ActionButton'
+import Avatar from '../Avatar'
 
 type Props = {
   id: string
@@ -59,7 +60,7 @@ const PostDetail = ({ id }: Props) => {
           <PostDetailContainer>
             <UserInfo>
               <UserInfoHeader>
-                <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
+                <Avatar url={data.user.image} />
                 <div>
                   <p>
                     {data.user.first_name
@@ -78,12 +79,12 @@ const PostDetail = ({ id }: Props) => {
               </p>
             </PostDetailContent>
             <PostStats>
-              <p>
-                <span>121</span> repostagens
+              {/* <p>
+                <span>{data.parent.}</span> repostagens
               </p>
               <p>
                 <span>11</span> citações
-              </p>
+              </p> */}
               <p>
                 <span>{data?.likes}</span> curtidas
               </p>

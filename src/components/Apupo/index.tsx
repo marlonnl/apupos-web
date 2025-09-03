@@ -7,6 +7,7 @@ import {
   Calendar2DateFill,
   CalendarFill
 } from 'react-bootstrap-icons'
+import Avatar from '../Avatar'
 
 type actionProps = {
   id: number
@@ -46,7 +47,7 @@ const Apupo = ({
     <>
       <Container>
         <div>
-          <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
+          <Avatar url={user.image} page="post" />
         </div>
         <PostContent>
           <PostInfo>

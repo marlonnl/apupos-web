@@ -14,6 +14,7 @@ import { useDoLogoutMutation } from '../../services/api_auth'
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../../store/reducers/auth'
+import Avatar from '../Avatar'
 
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -43,7 +44,7 @@ const Sidebar = () => {
   return (
     <SidebarSection>
       <UserBar>
-        <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
+        <Avatar url={userStateData?.image ? userStateData?.image : 'null'} />
         <div>
           <h3>
             <b>{userStateData?.first_name}</b>

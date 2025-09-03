@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import Feed from '../../components/Feed'
 import FollowList from '../../components/FollowList'
+import Avatar from '../../components/Avatar'
 
 const User = () => {
   const profileContent = ''
@@ -160,11 +161,13 @@ const User = () => {
                     </p>
                   </div>
                   <UserHeaderNavContainer>
-                    <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:fjye6cgixsgbtfa3pfbaeuko/bafkreibjobzsdumpa6b7v747gjvqxkpkjqd3nyailuyof7qgagvr42jby4@jpeg" />
+                    <Avatar url={data.profile.image} page="profile" />
                     <UserHeaderNavbar>
                       {isMe ? (
-                        <button onClick={onClickEditProfile}>
-                          <PersonLinesFill /> editar perfil
+                        <button>
+                          <Link to="/config/">
+                            <PersonLinesFill /> editar perfil
+                          </Link>
                         </button>
                       ) : !data.is_following ? (
                         <button onClick={() => handleFollow()}>
@@ -235,9 +238,9 @@ const User = () => {
         </Main>
       </div>
       <div>
-        {modalVisible && (
+        {/* {modalVisible && (
           <EditProfile username={username} onClick={closeModal} />
-        )}
+        )} */}
         {/* {followersList && <FollowList list={data?.follow.followers} />}
         {followingList && <FollowList list={data?.follow.following} />} */}
       </div>
