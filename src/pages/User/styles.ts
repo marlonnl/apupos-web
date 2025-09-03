@@ -5,7 +5,6 @@ export const UserContainer = styled.div`
   width: 100%;
   max-width: 560px;
   border-left: 1px solid ${color.separator};
-  /* padding-left: 16px; */
 `
 
 export const UserHeader = styled.div`
@@ -77,6 +76,7 @@ export const UserInfoItem = styled.div`
 
   a {
     color: ${color.secondaryText};
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;
