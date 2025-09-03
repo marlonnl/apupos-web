@@ -53,7 +53,7 @@ const Login = () => {
 
   useEffect(() => {
     // console.log('sucesso!!!')
-    if (isSuccess && data) {
+    if (data) {
       // console.log('login', data)
 
       const authData: authState = {
@@ -63,8 +63,12 @@ const Login = () => {
 
       dispatch(authentication(authData))
       // dispatch(refresh())
+    }
+
+    if (isSuccess) {
       navigate('..')
     }
+
     // if (data && data.tokens.access && data.tokens.refresh) {
     //   dispatch(authentication(data))
     //   localStorage.setItem('accessToken', data?.tokens.access)

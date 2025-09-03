@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormItem, Panels, RegisterForm, Title } from './styles'
 import { useRegisterMutation } from '../../services/api_auth'
 import Logo from '../../components/Logo'
@@ -46,6 +46,13 @@ const Register = () => {
       console.log(e)
     }
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      alert('Registro concluído com sucesso!')
+      navigate('/login')
+    }
+  }, [isSuccess])
 
   return (
     <div className="container" style={{ marginTop: '16px' }}>
