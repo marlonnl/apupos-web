@@ -9,13 +9,13 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useAuthenticatedQuery } from './services/api_auth'
 import { authentication } from './store/reducers/auth'
+import Loader from './components/Loader'
 
 const Rotas = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { isSuccess, data, status, isError, isFetching } =
-    useAuthenticatedQuery()
+  const { isSuccess, data, status, isFetching } = useAuthenticatedQuery()
 
   useEffect(() => {
     if (status === 'rejected') {
@@ -28,7 +28,11 @@ const Rotas = () => {
 
       dispatch(authentication(authData))
     }
-  }, [data])
+  }, [data, status])
+
+  if (isFetching) {
+    return <Loader />
+  }
 
   return (
     <Routes>
