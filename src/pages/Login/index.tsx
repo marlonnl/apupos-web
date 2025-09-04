@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { useLoginMutation } from '../../services/api_auth'
+import { authentication, authState } from '../../store/reducers/auth'
+import { RootReducer } from '../../store'
+
+import Loader from '../../components/Loader'
 import Logo from '../../components/Logo'
 import SideAuth from '../../components/SideAuth'
+import ErrorBox from '../../components/ErrorBox'
+
 import {
   FormItem,
   GoToRegister,
@@ -8,13 +18,6 @@ import {
   RegisterForm,
   Title
 } from '../Register/styles'
-import { useLoginMutation } from '../../services/api_auth'
-import ErrorBox from '../../components/ErrorBox'
-import { useDispatch, useSelector } from 'react-redux'
-import { authentication, authState } from '../../store/reducers/auth'
-import { RootReducer } from '../../store'
-import { Link, useNavigate } from 'react-router-dom'
-import Loader from '../../components/Loader'
 
 type FormDataLogin = {
   username: string
@@ -45,38 +48,22 @@ const Login = () => {
   ) => {
     e.preventDefault()
     try {
-      await login(formDataLogin)
+      await login(formDataLogin).unwrap()
+      navigate('/')
     } catch (e) {
       console.log(e)
     }
   }
 
   useEffect(() => {
-    // console.log('sucesso!!!')
     if (data) {
-      // console.log('login', data)
-
       const authData: authState = {
         authenticated: true,
         user: data.user
       }
 
       dispatch(authentication(authData))
-      // dispatch(refresh())
     }
-
-    if (isSuccess) {
-      navigate('..')
-    }
-
-    // if (data && data.tokens.access && data.tokens.refresh) {
-    //   dispatch(authentication(data))
-    //   localStorage.setItem('accessToken', data?.tokens.access)
-    //   localStorage.setItem('refreshToken', data?.tokens.refresh)
-    // }
-    // if (authenticated) {
-    //   navigate('..')
-    // }
   }, [isSuccess, data, dispatch, navigate])
 
   if (isLoading) {
