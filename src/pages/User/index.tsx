@@ -44,64 +44,34 @@ const User = () => {
   const [followersList, setFollowersList] = useState<boolean>(false)
   const [followingList, setFollowingList] = useState<boolean>(false)
 
-  const [isFollowing, setIsFollowing] = useState<boolean>()
+  const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
   const { data, isSuccess, refetch } = useGetProfileQuery(username)
   const [followAction, { isSuccess: followSuccess }] = useFollowMutation()
 
-  function onClickEditProfile() {
-    setModalVisible(true)
-  }
-
-  const handleFollow = async () => {
-    const followState: 'follow' | 'unfollow' = isFollowing
-      ? 'unfollow'
-      : 'follow'
+  const handleFollow = async (action: 'follow' | 'unfollow') => {
+    // const followState: 'follow' | 'unfollow' = isFollowing
+    //   ? 'unfollow'
+    //   : 'follow'
 
     try {
-      await followAction({ username, action: followState })
+      await followAction({ username, action: action }).unwrap()
 
       if (followSuccess) {
-        console.log('alterando...', isFollowing)
+        // console.log('alterando...', isFollowing)
         setIsFollowing(!isFollowing)
-        console.log('alterado...', isFollowing)
-        refetch()
+        // console.log('alterado...', isFollowing)
       }
+      refetch()
     } catch (error) {
       console.log('follow error', error)
     }
   }
 
-  // const doFollowState = () => {
-  //   if (isFollowing == undefined) {
-  //     setIsFollowing(data?.is_following)
-  //     console.log('undefeined!!!', data?.is_following)
-  //   }
-
-  //   if (isSuccess) {
-  //     if (data.is_following == false) {
-  //       setIsFollowing(false)
-  //     } else if (data.is_following == true) {
-  //       setIsFollowing(true)
-  //     }
-
-  //     console.log('function follow state', isFollowing, data.is_following)
-  //   }
-  // }
-
   useEffect(() => {
     setIsMe(username == userStateData?.username)
     // setIsFollowing(!isFollowing)
   }, [data, isSuccess, isFollowing])
-
-  const showModal = () => {
-    setModalVisible(true)
-  }
-  const closeModal = () => {
-    setModalVisible(false)
-
-    refetch()
-  }
 
   const checkContent = () => {
     if (!followersList && !followingList) {
@@ -136,10 +106,7 @@ const User = () => {
 
   return (
     <>
-      <div
-        className="container"
-        style={modalVisible ? { opacity: '0.3' } : { opacity: '1' }}
-      >
+      <div className="container">
         <Main>
           <Sidebar />
           <UserContainer>
@@ -170,24 +137,14 @@ const User = () => {
                           </Link>
                         </button>
                       ) : !data.is_following ? (
-                        <button onClick={() => handleFollow()}>
+                        <button onClick={() => handleFollow('follow')}>
                           <PersonFillAdd /> seguir
                         </button>
                       ) : (
-                        <button onClick={() => handleFollow()}>
+                        <button onClick={() => handleFollow('unfollow')}>
                           <PersonFillDash /> deixar de seguir
                         </button>
                       )}
-                      {/* {!isMe &&
-                        (!data.is_following ? (
-                          <button onClick={() => handleFollow()}>
-                            <PersonFillAdd /> seguir
-                          </button>
-                        ) : (
-                          <button onClick={() => handleFollow()}>
-                            <PersonFillDash /> deixar de seguir
-                          </button>
-                        ))} */}
                       <button>...</button>
                     </UserHeaderNavbar>
                   </UserHeaderNavContainer>
@@ -232,17 +189,9 @@ const User = () => {
                 </UserInfo>
               </>
             )}
-            {/* <Feed usernameFeed={username} showFeed={false} /> */}
             {checkContent()}
           </UserContainer>
         </Main>
-      </div>
-      <div>
-        {/* {modalVisible && (
-          <EditProfile username={username} onClick={closeModal} />
-        )} */}
-        {/* {followersList && <FollowList list={data?.follow.followers} />}
-        {followingList && <FollowList list={data?.follow.following} />} */}
       </div>
     </>
   )

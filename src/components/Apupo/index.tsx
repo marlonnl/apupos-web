@@ -1,6 +1,5 @@
 import { Container, PostContent, PostInfo, PostText, Retweet } from './styles'
 import { useActionPostMutation } from '../../services/api'
-import { formatDate } from '../../utils'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   Calendar,
