@@ -71,4 +71,9 @@ export const FormItem = styled.div`
   label {
     font-size: 14px;
   }
+
+  span {
+    font-size: 11px;
+    color: ${color.secondaryText};
+  }
 `

@@ -29,7 +29,6 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value
     })
-    // console.log(formData)
   }
 
   const handleSubmit = async (
@@ -37,7 +36,7 @@ const Register = () => {
   ) => {
     e.preventDefault()
     try {
-      await register(formData)
+      await register(formData).unwrap()
       if (isSuccess) {
         console.log('registro concluido!!')
         navigate('/login')
@@ -49,7 +48,9 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      alert('Registro concluído com sucesso!')
+      alert(
+        'Registro concluído com sucesso! Você será redirecionado para fazer o login...'
+      )
       navigate('/login')
     }
   }, [isSuccess])
@@ -84,7 +85,10 @@ const Register = () => {
           </FormItem>
 
           <FormItem>
-            <label>Senha:</label>
+            <label>
+              Senha: <span>(deve ter no mínimo 8 caracteres)</span>
+            </label>
+
             <input
               type="password"
               name="password1"
