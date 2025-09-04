@@ -1,7 +1,9 @@
-import { Chat, Heart, ArrowRepeat, HeartFill } from 'react-bootstrap-icons'
+import { useState } from 'react'
+
+import { Heart, ArrowRepeat, HeartFill, Link45deg } from 'react-bootstrap-icons'
+
 import { ActionIconContainer } from './styles'
 import { color } from '../../styles/colors'
-import { useState } from 'react'
 
 type Props = {
   action: 'like' | 'reply' | 'rt'
@@ -28,21 +30,23 @@ const ActionButton = ({
         setCounter(counter + 1)
       }
       setIsActive(!isActive)
-      console.log(counter, isActive)
+      // console.log(counter, isActive)
     }
   }
 
   let actionElement
   if (action === 'like') {
     if (isActive == true) {
-      actionElement = <HeartFill color={color.likeActive} />
+      actionElement = (
+        <HeartFill title="Curtir postagem" color={color.likeActive} />
+      )
     } else {
       actionElement = <Heart />
     }
   } else if (action === 'reply') {
-    actionElement = <Chat />
+    actionElement = <Link45deg title="Ir para a página do post" />
   } else if (action === 'rt') {
-    actionElement = <ArrowRepeat />
+    actionElement = <ArrowRepeat title="Repupar a postagem" />
   }
 
   return (
